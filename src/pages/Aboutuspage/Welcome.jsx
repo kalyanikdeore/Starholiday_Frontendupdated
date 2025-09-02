@@ -2,7 +2,7 @@ import React from "react";
 
 import restaurant from "../../assets/Images/restaurant.jpeg";
 
-const ShilpiResort = () => {
+const StarResort = () => {
   return (
     <section className="bg-white py-33 px-6 md:px-16">
       <div className="text-center mb-12">
@@ -40,13 +40,13 @@ const ShilpiResort = () => {
           <p className="text-gray-700 leading-relaxed mt-4">
             Welcome to Star Holiday Resort- the Best Hotel in Saputara, where
             guests will find affordable luxury amenities and accommodations.
-            Shilpi Hill Resport is heart of saputara hotel. Star Holiday Resort
-            is best hotel in saputara with rates, well experienced & well known
-            its services. Shilpi Hotel in saputara is Secure, Trusted and highly
+            Star Hill Resport is heart of saputara hotel. Star Holiday Resort is
+            best hotel in saputara with rates, well experienced & well known its
+            services. Star Hotel in saputara is Secure, Trusted and highly
             recommended. Star Holiday Resort has one of its kind and Unique
-            Banqueting model in Saputara Hotels. Shilpi hotel in Saputara feels
+            Banqueting model in Saputara Hotels. Star hotel in Saputara feels
             refreshed and connected outside of your room, giving you the freedom
-            to work or relax your way in hotel shilpi at saputara.
+            to work or relax your way in hotel Star at saputara.
           </p>
         </div>
       </div>
@@ -54,4 +54,4 @@ const ShilpiResort = () => {
   );
 };
 
-export default ShilpiResort;
+export default StarResort;

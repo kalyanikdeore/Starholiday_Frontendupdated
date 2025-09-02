@@ -1,20 +1,26 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export const VideoSection = () => {
+function VideoSection() {
+  const navigate = useNavigate();
+
   return (
-    <section className="relative w-full h-screen overflow-hidden">
-      {/* Container with full viewport size */}
-      <div className="absolute inset-0 w-full h-full">
-        {/* YouTube iframe with "cover" behavior */}
-        <iframe
-          className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover"
-          src="https://www.youtube.com/embed/cUXa7jfI4Po?autoplay=1&mute=1&loop=1&playlist=cUXa7jfI4Po&controls=0&modestbranding=1&rel=0"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+    <div className="flex flex-col items-center justify-center text-center mt-10 px-4">
+      {/* Single YouTube Embed */}
+      <div className="w-full max-w-7xl">
+        <div className="aspect-video rounded-lg shadow-lg overflow-hidden">
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/_mo_OUwrWNE?si=JIUe2YNUYasbXODe"
+            title="Hotel Video Tour"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
-    </section>
+    </div>
   );
-};
+}
+
+export default VideoSection;

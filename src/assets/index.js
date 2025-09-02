@@ -49,10 +49,21 @@ import cou2 from "./Images/cou2.jpg";
 import cou3 from "./Images/cou-3.jpg";
 import cou4 from "./Images/cou-4.jpg";
 import cou5 from "./Images/cou5.jpg";
-
+import bedimge from "./Images/6bedimge.jpeg";
+import restaurant22 from "./Images/restaurant22.jpeg";
+import restaurant23 from "./Images/restaurant23.jpeg";
+import restaurant24 from "./Images/restaurant24.jpeg";
+import sixbed from "./Images/sixbed.jpeg";
+import service from "./Images/service.jpg";
 // Export all
 export {
+  service,
   logo,
+  sixbed,
+  restaurant22,
+  restaurant23,
+  restaurant24,
+  bedimge,
   saputara,
   familyroom,
   familyroom2,

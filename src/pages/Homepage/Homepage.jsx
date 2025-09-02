@@ -5,20 +5,27 @@ import LuxuryRooms from "./LuxuryRooms";
 import Amenities from "./Amenities";
 // import VideoSection from "./VideoSection";
 // import VideoSection from "./VideoSection";
-import { VideoSection } from "./VideoSection"; // adjust path if needed
+import VideoSection from "./VideoSection";
 import HotelBookingCard from "./HotelBookingCard";
 import PlanAVisit from "./PlanAVisit";
 import Testimonials from "./Testimonials";
 import StayWithUs from "./StayWithUs";
 import Impact from "./Impact";
+import Herosection from "./Herosection";
+import Resortimage from "./Resortimage";
+import Serviceimage from "./Serviceimage";
 
 function Home() {
   return (
     <div>
-      <VideoSection />
+      <Herosection />
+
       <HotelBookingCard />
+      <VideoSection />
       <AboutUsSection />
       <LuxuryRooms />
+      <Resortimage />
+      <Serviceimage />
       <Amenities />
       {/* <HotelStats /> */}
       <Impact />

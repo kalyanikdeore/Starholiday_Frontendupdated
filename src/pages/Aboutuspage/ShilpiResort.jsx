@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShilpiResort = () => {
+const StarResort = () => {
   return (
     <section className="bg-white py-33 px-6 md:px-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
@@ -44,4 +44,4 @@ const ShilpiResort = () => {
   );
 };
 
-export default ShilpiResort;
+export default StarResort;

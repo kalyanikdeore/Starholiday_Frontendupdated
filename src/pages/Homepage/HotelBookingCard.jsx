@@ -5,9 +5,9 @@ function HotelBookingCard() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative flex flex-col items-center justify-center text-center mt-20 px-4">
+    <div className="flex flex-col items-center justify-center text-center mt-10 px-4">
       <h2 className="text-2xl md:text-4xl font-bold text-blue-900 mb-4">
-        3 STAR GOVERNMENT APPROVED HOTEL IN SAPUTARA
+        2 STAR GOVERNMENT APPROVED HOTEL IN SAPUTARA
       </h2>
 
       <div className="pt-4">
@@ -19,16 +19,18 @@ function HotelBookingCard() {
         </button>
       </div>
 
-      {/* YouTube Embed */}
-      <div className="relative w-full max-w-6xl aspect-video rounded-lg shadow-lg overflow-hidden">
-        <iframe
-          className="w-full h-full"
-          src="https://www.youtube.com/embed/cUXa7jfI4Po?autoplay=1&mute=1&loop=1&playlist=cUXa7jfI4Po"
-          title="Hotel Video"
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        ></iframe>
+      {/* Single YouTube Embed */}
+      <div className="w-full max-w-7xl">
+        <div className="aspect-video rounded-lg shadow-lg overflow-hidden">
+          <iframe
+            className="w-full h-full"
+            src="https://www.youtube.com/embed/elM2c0nnMxE?autoplay=1&mute=1&loop=1&playlist=elM2c0nnMxE"
+            title="Hotel Video Tour"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
     </div>
   );

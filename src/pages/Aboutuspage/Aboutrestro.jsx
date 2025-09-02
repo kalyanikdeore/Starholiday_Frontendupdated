@@ -18,10 +18,10 @@ const ShilpiResort = () => {
         <p className="text-lg text-center text-gray-700 mb-4">
           star holiday hotel in saputara feels privileged to offer our guest's
           comfortable couches, tables and lounge spaces, creating a warm
-          environment to just relax and cherish memorable time. Hotel Shilpi
+          environment to just relax and cherish memorable time. Hotel star
           offers a full array of services to create a simple and pleasurable
           environment for your stay. Whether it is board meetings, training
-          program, team buildings exercises seminars; Hotel Shilpi can cater to
+          program, team buildings exercises seminars; Hotel star can cater to
           all your requirements in saputara.
         </p>
       </div>

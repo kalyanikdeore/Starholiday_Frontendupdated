@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import bed6 from "../../assets/Images/6bed.jpg";
 import bed61 from "../../assets/Images/6bed1.jpg";
 import bed62 from "../../assets/Images/6bed2.jpg";
+import bedimge from "../../assets/Images/6bedimge.jpeg";
 
 // Image Carousel Component
 const ImageCarousel = ({ images, interval = 3000 }) => {
@@ -122,7 +123,7 @@ const ImageCarousel = ({ images, interval = 3000 }) => {
 
 // Main Page Component
 const LFamilyRooms = () => {
-  const carouselImages = [bed6, bed61, bed62];
+  const carouselImages = [bedimge, bed6, bed61, bed62];
 
   return (
     <section className="bg-gray-100 min-h-screen flex items-center justify-center px-4">

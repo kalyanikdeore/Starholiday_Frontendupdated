@@ -1,30 +1,32 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-// Import images (you'll need to adjust paths based on your project structure)
+// Import images
 import cou2 from "../../assets/Images/cou2.jpg";
-import bed6 from "../../assets/Images/6bed.jpg";
 import bed4 from "../../assets/Images/4bed.jpg";
+import bedimge from "../../assets/Images/6bedimge.jpeg";
+import sixbed from "../../assets/Images/sixbed.jpeg";
 
 const rooms = [
-  {
-    id: "4_bedrooms_family_room",
-    title: "4 Bedded Family Room",
-    image: bed4,
-    path: "/family_room",
-  }, 
-  {
-    id: "6_bedrooms_family_room",
-    title: "6 Bedded Family Room",
-    image: bed6,
-    path: "/6_bedrooms",
-  },
   {
     id: "couple_room",
     title: "Couple Room",
     image: cou2,
     path: "/Coupleroom",
+  },
+  {
+    id: "4_bedrooms_family_room",
+    title: "4 Bedded Family Room",
+    image: bed4,
+    path: "/family_room",
+  },
+  {
+    id: "6_bedrooms_family_room",
+    title: "6 Bedded Family Room",
+    image: sixbed,
+    path: "/6_bedrooms",
   },
 ];
 
@@ -35,18 +37,35 @@ const LuxuryRooms = () => {
     navigate(path);
   };
 
+  const handleBookNow = () => {
+    navigate("/bookform");
+  };
+
   return (
-    <section className="bg-gray-100 py-12 px-4 md:px-16">
+    <section className="relative bg-gradient-to-b from-blue-50 to-white py-16 px-6 md:px-16">
+      {/* Background shape effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-200/20 via-transparent to-blue-200/20 blur-2xl -z-10"></div>
+
       {/* Section heading */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl text-blue-900 font-semibold">
+      <div className="text-center mb-16">
+        <motion.h2
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-bold text-blue-900 tracking-wide"
+        >
           Our Luxury Rooms
-        </h2>
-        <div className="flex justify-center mt-4">
-          <span className="h-[1px] w-10 bg-yellow-600 mt-2 mr-2"></span>
-          <span className="text-yellow-600 text-xl">✦</span>
-          <span className="h-[1px] w-10 bg-yellow-600 mt-2 ml-2"></span>
+        </motion.h2>
+        <div className="flex justify-center mt-4 items-center">
+          <span className="h-[2px] w-16 bg-yellow-600"></span>
+          <span className="mx-3 text-yellow-600 text-2xl">✦</span>
+          <span className="h-[2px] w-16 bg-yellow-600"></span>
         </div>
+        <p className="text-gray-600 mt-4 text-lg max-w-2xl mx-auto">
+          Choose from our beautifully designed rooms that combine elegance,
+          comfort, and style for the perfect stay.
+        </p>
       </div>
 
       {/* Room cards */}
@@ -54,11 +73,11 @@ const LuxuryRooms = () => {
         {rooms.map((room, index) => (
           <motion.div
             key={room.id}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             whileHover={{
               scale: 1.05,
-              transition: { duration: 0.3 },
+              boxShadow: "0px 15px 40px rgba(0,0,0,0.15)",
             }}
             transition={{
               duration: 0.6,
@@ -66,24 +85,45 @@ const LuxuryRooms = () => {
               ease: "easeOut",
             }}
             viewport={{ once: true }}
-            className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform duration-300"
-            onClick={() => handleRoomClick(room.path)}
+            className="relative bg-white rounded-2xl shadow-md overflow-hidden group transform transition-all duration-300"
           >
-            <motion.div
-              className="overflow-hidden"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <img
+            {/* Image with overlay */}
+            <div className="relative">
+              <motion.img
                 src={room.image}
                 alt={room.title}
-                className="w-full h-64 object-cover"
+                className="w-full h-72 object-cover rounded-t-2xl"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.5 }}
               />
-            </motion.div>
-            <div className="p-6 text-center">
-              <h3 className="text-xl font-semibold text-blue-900 mb-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 "></div>
+              <h3 className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-2xl font-semibold opacity-0 group-hover:opacity-100 transition duration-500">
                 {room.title}
               </h3>
+            </div>
+
+            {/* Card body */}
+            <div className="p-6 text-center">
+              <h4 className="text-xl font-semibold text-gray-800 mb-4">
+                {room.title}
+              </h4>
+
+              {/* Buttons */}
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => handleRoomClick(room.path)}
+                  className="flex items-center gap-2 px-5 py-2 rounded-full bg-blue-900 text-white font-medium hover:bg-blue-700 transition"
+                >
+                  View Details
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={handleBookNow}
+                  className="px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-medium hover:opacity-90 transition"
+                >
+                  Book Now
+                </button>
+              </div>
             </div>
           </motion.div>
         ))}

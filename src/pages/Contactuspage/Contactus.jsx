@@ -184,7 +184,7 @@ const ContactUsPage = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">
-                    Working Hours
+                    Booking Hours
                   </h3>
                   <p className="text-gray-600 mt-1">
                     Monday - Friday: 9AM to 6PM
@@ -193,21 +193,6 @@ const ContactUsPage = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Office Address */}
-          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <div className="flex items-center gap-4 mb-5">
-              <div className="bg-[#155dfc] p-3 rounded-full text-white">
-                <MapPin size={20} />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800">
-                Manufacturing Unit
-              </h3>
-            </div>
-            <address className="text-gray-600 not-italic pl-14 space-y-2">
-              <p>Star Holiday Restro Saputara</p>
-            </address>
           </div>
         </motion.div>
       </div>

@@ -20,7 +20,7 @@ const AboutUsSection = () => {
             Welcome to
           </h3>
           <h1 className="text-4xl md:text-5xl font-bold text-blue-950 mb-4 border-b-4 w-fit border-blue-950 pb-1">
-            Star Holiday Resort
+            Star Holiday Home Hill Resort
           </h1>
           <p className="text-gray-700 leading-relaxed mt-4">
             At Star Holiday Resort, we believe in creating unforgettable

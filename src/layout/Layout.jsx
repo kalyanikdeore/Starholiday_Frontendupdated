@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import Contentwrapper from "../components/Contentwrapper/Contentwrapper";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
+import WhatsAppPopup from "../components/PopUp/WhatsAppPopup";
 function Layout() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
@@ -17,7 +18,7 @@ function Layout() {
       <Navbar />
 
       <Outlet />
-
+      <WhatsAppPopup />
       <Footer />
     </>
   );

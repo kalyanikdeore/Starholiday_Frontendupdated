@@ -19,11 +19,11 @@ const AboutUsSection = () => {
           <h3 className="text-lg text-yellow-700 font-semibold mb-1">
             Welcome to
           </h3>
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-950 mb-4 border-b-4 w-fit border-blue-950 pb-1">
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-950 mb-4  pb-1">
             Star Holiday Home Hill Resort
           </h1>
           <p className="text-gray-700 leading-relaxed mt-4">
-            At Star Holiday Resort, we believe in creating unforgettable
+            At Star Holiday Home Resort, we believe in creating unforgettable
             memories through luxury, comfort, and exceptional service. Located
             in the heart of Saputara, our resort offers the perfect getaway with
             a blend of traditional hospitality and modern amenities.
@@ -36,7 +36,7 @@ const AboutUsSection = () => {
           </p>
           <button
             onClick={handleLearnMore}
-            className="mt-6 bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 transition"
+            className="mt-6 bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-6 py-2 rounded hover:bg-orange-700 transition"
           >
             LEARN MORE
           </button>

@@ -38,7 +38,6 @@ const Footer = () => {
       color: "#E1306C",
       url: "https://www.instagram.com/starholidayhome/",
     },
-    { Icon: FaTwitter, color: "#0077B5", url: "#" },
   ];
 
   // Set consistent icon size
@@ -148,7 +147,7 @@ const Footer = () => {
           {/* RIGHT COLUMN */}
           <div className="w-full lg:w-2/4 px-6 py-4">
             <h2 className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-[#ff9d00] to-[#ff6b00]">
-              STAR HOLIDAY RESORT
+              STAR HOLIDAY HOME RESORT
             </h2>
             <p className="text-lg mb-6 text-white-300 font-medium">
               BEST RATE GUARANTEE
@@ -198,7 +197,7 @@ const Footer = () => {
             {/* Social Media */}
             <div className="mb-4">
               <p className="text-[13px] text-white-400 tracking-wider mb-3">
-                CONNECT WITH STAR HOLIDAY RESORT
+                CONNECT WITH STAR HOLIDAY Home RESORT
               </p>
               <div className="flex space-x-3">
                 {socials.map((social, i) => (
@@ -226,7 +225,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="border-t border-[#ffffff33] pt-8 pb-4 mt-4">
           <div className="flex flex-col md:flex-row justify-between items-center text-[15px]">
-            <p>© 2025 Star Holiday Resort All Rights Reserved.</p>
+            <p>© 2025 Star Holiday Home Resort All Rights Reserved.</p>
             <p className="text-center md:text-right">
               Web Design By{" "}
               <a

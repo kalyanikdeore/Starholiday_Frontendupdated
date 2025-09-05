@@ -5,9 +5,11 @@ const Aboutfac = () => {
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg ">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">About Us</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          About Facility
+        </h1>
         <p className="font-bold text-blue-600">
-          ABOUT Star Holiday Resort - SAPUTARA, GUJARAT, INDIA.
+          ABOUT Star Holiday Home Resort - SAPUTARA, GUJARAT, INDIA.
         </p>
       </div>
 
@@ -15,37 +17,36 @@ const Aboutfac = () => {
       <div className="mb-8">
         <div className="text-lg text-center text-gray-700 mb-4">
           <p>
-            Star Holiday hotel in saputara feels privileged to offer our guest's
-            comfortable couches, tables and lounge spaces, creating a warm
-            environment to just relax and cherish memorable time. Hotel Shilpi
-            offers a full array of services to create a simple and pleasurable
-            environment for your stay. Whether it is board meetings, training
-            program, team buildings exercises seminars; Hotel Shilpi can cater
-            to all your requirements in saputara.
+            At <strong>Star Holiday Home, Saputara</strong>, we take pride in
+            offering our guests a warm and inviting atmosphere. From comfortable
+            couches and elegant lounge spaces to relaxing corners, we create the
+            perfect setting to unwind, connect, and cherish memorable moments.
+            Our hotel provides a complete range of services to ensure your stay
+            is simple, comfortable, and truly enjoyable. Whether it’s a board
+            meeting, training program, team-building activity, or seminar, we
+            are well equipped to cater to all your requirements in Saputara.
           </p>
           <p>
-            The spacious entire lounge with distinctive interiors reflecting the
-            indian ethos that will give guests a discrete sense of place with a
-            pleasant welcome. The diffuses natural light complementing the
-            architectural value, design and overall ambience.
+            Our spacious lounge features distinctive interiors inspired by
+            Indian ethos, creating a unique sense of place from the moment you
+            arrive. Natural light enhances the design and ambience, making the
+            environment refreshing and welcoming.
           </p>
           <p>
-            Blanding with the aesthetics of the beautiful and creative art piece
-            from bamboo roots though complex yet unique in its own way,
-            expressing the artistic creation of nature. Star Holiday Resort
-            feels privileged to offer our guest's comfortable couches, tables,
-            lounge spaces, creating a warm environment to just relax and cherish
-            memorable time. Also we offer free internet Wi-Fi access to our
-            guests in the lounge area. Star Holiday Resorts variety of amenities
-            makes an ideal destination for recreation and relaxation year round.
+            Blending creativity with nature, our interiors include beautiful art
+            pieces crafted from bamboo roots—complex yet elegant, adding a touch
+            of natural artistry. Guests can also enjoy free Wi-Fi access in the
+            lounge, making it an ideal space for both relaxation and
+            productivity. With a wide variety of amenities, Star Holiday Home is
+            the perfect destination for recreation and leisure throughout the
+            year.
           </p>
           <p>
-            As a guest at our resort you will be the recipient of comfort and
-            luxuries. We offer a full array of services to create a simple and
-            pleasurable environment for your stay. A single call will put you in
-            effortless touch with all your needs, whether they involve reserving
-            a table for dinner, making a spa appointment, ordering room service,
-            arranging a wake up call or just requesting added amenities.
+            As our valued guest, you will experience both comfort and luxury. A
+            single call connects you with all your needs—whether it’s reserving
+            a dinner table, booking a spa appointment, requesting room service,
+            arranging a wake-up call, or asking for added amenities. At Star
+            Holiday Home, we make sure your stay is effortless and memorable.
           </p>
         </div>
       </div>

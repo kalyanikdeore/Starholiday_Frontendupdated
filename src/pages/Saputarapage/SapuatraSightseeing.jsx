@@ -35,17 +35,17 @@ const ShilpiResort = () => {
 
               <div className="space-y-4 text-gray-700">
                 <p className="text-lg leading-relaxed">
-                  At Star Holiday Resort, we believe in creating unforgettable
-                  memories through luxury, comfort, and exceptional service.
-                  Located in the heart of Saputara, our resort offers the
-                  perfect getaway with a blend of traditional hospitality and
-                  modern amenities.
+                  Saputara's main attractions include the beautiful Saputara
+                  Lake with boating facilities, the picturesque Sunset Point
+                  with panoramic views, the historically rich Saputara Tribal
+                  Museum, the lush Vansda National Park, and the captivating
+                  Gira Falls. Visitors can also enjoy the unique terraced Step
+                  Garden, the serene Lake Garden, and the thrilling Saputara
+                  Ropeway.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  With years of experience in hosting families, solo travelers,
-                  and corporate guests, we take pride in our secure and peaceful
-                  environment. Our team is committed to ensuring your stay is
-                  not only comfortable but truly memorable.
+                  Sunset Point: A scenic tableland offering breathtaking views
+                  of the sunset, perfect for photography and relaxation.
                 </p>
               </div>
             </div>

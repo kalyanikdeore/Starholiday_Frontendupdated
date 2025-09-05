@@ -3,19 +3,19 @@ import React from "react";
 // Testimonial Video Data with YouTube embed links
 const Saputaravideo = [
   {
-    name: "Saputara",
+    name: "Saputara Hill Station Video's",
     video:
       "https://www.youtube.com/embed/cUXa7jfI4Po?autoplay=1&mute=1&loop=1&playlist=cUXa7jfI4Po",
     review: "Great experience. Will come back again.",
   },
   {
-    name: "Saputara",
+    name: "Saputara Hill Station Video's",
     video:
       "https://www.youtube.com/embed/cUXa7jfI4Po?autoplay=1&mute=1&loop=1&playlist=cUXa7jfI4Po",
     review: "Very professional and efficient!",
   },
   {
-    name: "Saputara",
+    name: "Saputara Hill Station Video's",
     video:
       "https://www.youtube.com/embed/cUXa7jfI4Po?autoplay=1&mute=1&loop=1&playlist=cUXa7jfI4Po",
     review: "Excellent service! Highly recommend.",

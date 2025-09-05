@@ -11,9 +11,9 @@ function Home() {
       <AboutUsHero />
       <Aboutfac />
       <Facility />
-      <FacilitySwimmingpool />
+      {/* <FacilitySwimmingpool />
       <FacilityGarden />
-      <HotelCard />
+      <HotelCard /> */}
     </div>
   );
 }

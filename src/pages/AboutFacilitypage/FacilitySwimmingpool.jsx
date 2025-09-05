@@ -27,19 +27,23 @@ const ShilpiResort = () => {
               <div className="flex items-center mb-6">
                 <div className="w-16 h-1 bg-blue-600 mr-4 z-40"></div>
                 <p className="text-lg font-semibold text-blue-900 z-40">
-                  Complimentary for our guests 24 hours a day
+                  Open 24/7 — Complimentary for all our guests
                 </p>
               </div>
 
               <p className="text-gray-700 leading-relaxed mb-4 text-lg z-40">
-                At Star Holiday Resort, we believe in creating unforgettable
-                memories through luxury, comfort, and exceptional service.
+                Dive into relaxation at our crystal-clear{" "}
+                <strong>swimming pool</strong>, designed to refresh and
+                rejuvenate you at any time of the day. Whether you want to enjoy
+                a morning swim, unwind after a busy day, or simply lounge by the
+                poolside, we’ve created the perfect space for you.
               </p>
 
               <p className="text-gray-700 leading-relaxed mb-6 text-lg z-40">
-                Located in the heart of Saputara, our resort offers the perfect
-                getaway with a blend of traditional hospitality and modern
-                amenities.
+                At <strong>Star Holiday Resort, Saputara</strong>, we combine
+                modern amenities with traditional hospitality to give you a
+                memorable stay. Our poolside ambience adds to the charm, making
+                your getaway truly special and enjoyable.
               </p>
             </div>
           </div>

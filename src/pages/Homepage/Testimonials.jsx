@@ -1,115 +1,182 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const Testimonials = () => {
-  const navigate = useNavigate();
-  const [profileImg, setProfileImg] = useState("");
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
-  useEffect(() => {
-    // Generate random number between 1–99
-    const randomNum = Math.floor(Math.random() * 99) + 1;
-    // Alternate between men and women randomly
-    const gender = Math.random() > 0.5 ? "men" : "women";
-    setProfileImg(
-      `https://media.istockphoto.com/id/1562983249/photo/portrait-of-happy-and-successful-businessman-indian-man-smiling-and-looking-at-camera.jpg?s=612x612&w=0&k=20&c=tfBv6taG9nTidFwENcrvEEvRHABN5gDAmg-K1G1Etnc=`
-    );
-  }, []);
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
-  const handleBookNow = () => {
-    navigate("/bookform");
+const clientTestimonials = [
+  {
+    name: "Hitesh Maurya",
+    project: "Holiday with Friends",
+    quote:
+      "Very Nice Hotel in at Saputara location, Owner and Support Staff shows very helpful gesture. Also Experience their Very Delicious Food. Highly Recommend for Couples, Family and Bachelors.",
+    rating: 5,
+  },
+  {
+    name: "Mamta Appa",
+    project: "Family Vacation",
+    quote:
+      "Very happy to visit this place. No words for each and everything. Feel like my own home. Give instant service. And most thing is that cleanliness is superb.",
+    rating: 5,
+  },
+  {
+    name: "Ketan Appa",
+    project: "Weekend Getaway",
+    quote:
+      "This is superb place. Not compare to other hotels. This is the place where you not feel that you are out of station, feel like our own home, Specially food and service are superb.",
+    rating: 5,
+  },
+  {
+    name: "Margi Parekh",
+    project: "Holiday Stay",
+    quote:
+      "The hotel is superb and requirements are very good when you came at this place must visit this hotel and prefer this hotel.",
+    rating: 5,
+  },
+];
+
+const TestimonialSection = () => {
+  const clientsRef = useRef(null);
+
+  const scrollClients = (direction) => {
+    if (clientsRef.current) {
+      const scrollAmount = direction === "left" ? -300 : 300;
+      clientsRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 font-sans bg-white text-gray-800">
-      <h2 className="text-4xl text-blue-900 font-bold mb-8 text-center">
-        Testimonials
-      </h2>
-
-      <div className="border-t border-gray-300 my-4"></div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Right Column */}
-        <div className="space-y-8 shadow" style={{ marginTop: "101px" }}>
-          <div className="flex justify-center">
-            <div className="w-full max-w-md">
-              <img
-                src={profileImg}
-                alt="Guest profile"
-                className="w-full h-auto rounded-full border-4 border-white shadow-lg"
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  objectFit: "cover",
-                  marginLeft: "119px",
-                }}
-              />
-            </div>
-          </div>
-
-          <div
-            className="bg-gray-50 p-6 rounded-lg"
-            style={{ marginTop: "-20px" }}
+    <section className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Client Testimonials */}
+        <div className="mt-28">
+          <motion.div
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
           >
-            <h2 className="text-2xl text-center text-blue-700 font-semibold mb-2">
-              Amit Sonwane
-            </h2>
-            <p className="text-gray-600 border-l-4 border-blue-200 pl-4 py-2">
-              "A short but very pleasant stay. Thank you for your hospitality.
-              Keep up the good work."
-            </p>
-          </div>
-        </div>
-
-        {/* Left Column */}
-        <div className="space-y-8 shadow p-5">
-          <h2 className="text-2xl font-semibold mb-4">Google Reviews</h2>
-
-          <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-medium">Krutarth Patel</h3>
-            <div className="flex mb-2">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className="text-yellow-400">
-                  ★
-                </span>
-              ))}
-            </div>
-            <p className="text-gray-600">
-              Good clean and hygienic rooms. Helpful staff, total customer
-              satisfaction. Will always book them when visiting Saputara.
-            </p>
-          </div>
-
-          <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-medium">Vijay Shivdasani</h3>
-            <div className="flex mb-2">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className="text-yellow-400">
-                  ★
-                </span>
-              ))}
-            </div>
-            <p className="text-gray-600">
-              Very nice place. Very cooperative staff, food quality is very
-              good. Prompt service for everything. Specially restaurant staff of
-              Star Holiday Resort always welcomed us with a smile. We enjoyed
-              special discount facility. Saputara jana ho to Shilpi Hill Resort
-              me hi rukna chahiye. Thank you so much for making our holidays
-              memorable.
-            </p>
-          </div>
-
-          <div className="pt-4">
-            <button
-              onClick={handleBookNow}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-8 mb-8 text-sm shadow-md transition-colors duration-300"
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold text-blue-900 mb-4"
+              variants={itemVariants}
             >
-              BOOK NOW
+              What Our Guests Say
+            </motion.h2>
+            <motion.div
+              className="w-24 h-1.5 bg-orange-400 mx-auto rounded-full"
+              variants={itemVariants}
+            ></motion.div>
+          </motion.div>
+
+          <div className="relative">
+            <button
+              onClick={() => scrollClients("left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-0 bg-gray-300 hover:bg-blue-200 text-white p-3 rounded-full shadow-md hidden md:block transition-transform hover:scale-110"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-6 h-6" />
             </button>
+            <button
+              onClick={() => scrollClients("right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-0 bg-gray-300 hover:bg-blue-200 text-white p-3 rounded-full shadow-md hidden md:block transition-transform hover:scale-110"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            <div
+              ref={clientsRef}
+              className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4 px-2"
+            >
+              {clientTestimonials.map((client, index) => (
+                <motion.div
+                  key={index}
+                  className="min-w-[300px] sm:min-w-[350px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xl">
+                        {client.name.charAt(0)}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-800">
+                          {client.name}
+                        </h4>
+                        <p className="text-sm text-blue-600">
+                          {client.project}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 mb-4">"{client.quote}"</p>
+                    <div className="flex gap-1 text-orange-500">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i}>
+                          {i < client.rating ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="w-5 h-5"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-5 h-5"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                              />
+                            </svg>
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Testimonials;
+export default TestimonialSection;

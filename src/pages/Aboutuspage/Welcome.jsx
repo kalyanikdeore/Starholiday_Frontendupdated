@@ -7,11 +7,11 @@ const StarResort = () => {
     <section className="bg-white py-33 px-6 md:px-16">
       <div className="text-center mb-12">
         <h6 className="text-2xl text-yellow-700 font-semibold">
-          Welcome to Hotels in Saputara
+          Welcome to Hotel in Saputara
         </h6>
         <h3 className="text-4xl text-blue-900 font-semibold">
-          Star Holiday Resort is the 1st & Only <br /> Government Approved
-          saputara hotels.
+          Star Holiday Home Resort is the One & Only <br /> Government Approved
+          saputara hotel.
         </h3>
       </div>
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
@@ -26,27 +26,26 @@ const StarResort = () => {
         {/* Left Content */}
         <div className="md:w-1/2">
           <p className="text-gray-700 leading-relaxed mt-4">
-            At Star Holiday Resort, we believe in creating unforgettable
-            memories through luxury, comfort, and exceptional service. Located
-            in the heart of Saputara, our resort offers the perfect getaway with
-            a blend of traditional hospitality and modern amenities.
+            Welcome to <strong>Star Holiday Home Resort</strong> – your perfect
+            destination for luxury, comfort, and warm hospitality. Nestled in
+            the heart of Saputara, our resort combines modern amenities with
+            traditional charm, offering an ideal getaway for families, couples,
+            and business travelers.
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
-            With years of experience in hosting families, solo travelers, and
-            corporate guests, we take pride in our secure and peaceful
-            environment. Our team is committed to ensuring your stay is not only
-            comfortable but truly memorable.
+            With years of experience in hosting guests from around the world, we
+            take pride in providing a safe, peaceful, and refreshing
+            environment. Our dedicated team ensures that every moment of your
+            stay is memorable, whether you are here to relax, celebrate, or
+            work.
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
-            Welcome to Star Holiday Resort- the Best Hotel in Saputara, where
-            guests will find affordable luxury amenities and accommodations.
-            Star Hill Resport is heart of saputara hotel. Star Holiday Resort is
-            best hotel in saputara with rates, well experienced & well known its
-            services. Star Hotel in saputara is Secure, Trusted and highly
-            recommended. Star Holiday Resort has one of its kind and Unique
-            Banqueting model in Saputara Hotels. Star hotel in Saputara feels
-            refreshed and connected outside of your room, giving you the freedom
-            to work or relax your way in hotel Star at saputara.
+            Recognized as one of the <strong>best hotels in Saputara</strong>,
+            Star Holiday Resort is known for affordable luxury, personalized
+            service, and unique facilities. From comfortable accommodations to
+            our exclusive banquet spaces, we bring you a stay experience that
+            blends elegance with convenience. Discover the joy of unwinding,
+            connecting, and creating unforgettable memories with us.
           </p>
         </div>
       </div>

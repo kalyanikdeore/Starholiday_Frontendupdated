@@ -1,135 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import bed6 from "../../assets/Images/6bed.jpg";
 import bed61 from "../../assets/Images/6bed1.jpg";
 import bed62 from "../../assets/Images/6bed2.jpg";
 import bedimge from "../../assets/Images/6bedimge.jpeg";
+import sixbed from "../../assets/Images/sixbed.jpeg";
+import six2 from "../../assets/Images/six2.jpg";
+const ImageGallery = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-// Image Carousel Component
-const ImageCarousel = ({ images, interval = 3000 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const images = [
+    { id: 1, src: sixbed, alt: "Course image 1" },
+    { id: 2, src: bed61, alt: "Course image 2" },
+    { id: 3, src: bed62, alt: "Course image 3" },
+    { id: 4, src: bedimge, alt: "Course image 4" },
+    { id: 5, src: six2, alt: "Course image 4" },
+  ];
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
   };
 
-  const goToPrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
   };
-
-  useEffect(() => {
-    const timer = setInterval(goToNext, interval);
-    return () => clearInterval(timer);
-  }, [interval]);
 
   return (
-    <div className="flex items-center justify-center py-10">
-      {/* Inline Style Tag */}
-      <style>
-        {`
-          .carousel-container {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-          }
-          .indicator-active {
-            background-color: white;
-            width: 12px;
-            height: 12px;
-          }
-        `}
-      </style>
-
-      <div className="relative w-[1000px] h-[500px] overflow-hidden carousel-container">
-        {/* Navigation Arrows */}
-        <button
-          onClick={goToPrev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
-        <button
-          onClick={goToNext}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-
-        {/* Carousel Images */}
-        <div
-          className="flex transition-transform duration-500 ease-in-out h-full"
-          style={{ transform: `translateX(-${currentIndex * 1000}px)` }}
-        >
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="w-[1000px] h-[500px] flex-shrink-0 flex items-center justify-center"
-            >
-              <img
-                src={image}
-                alt={`Slide ${index}`}
-                className="w-full h-full object-cover rounded-xl"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Indicators */}
-        <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full ${
-                currentIndex === index ? "indicator-active" : "bg-gray-400"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+    <div className="container-fluid mx-auto px-4 py-8 bg-gray-50 min-h-screen">
+      {/* Heading Section */}
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Gallery</h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Explore our collection of stunning images. Click on any image to view
+          it in full size.
+        </p>
+        <div className="w-24 h-1 bg-blue-500 mx-auto mt-6 rounded-full"></div>
       </div>
+
+      {/* Image Grid - Updated for wider desktop view */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-9xl mx-auto">
+        {images.map((image) => (
+          <div
+            key={image.id}
+            className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl cursor-pointer"
+            onClick={() => handleImageClick(image)}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+          </div>
+        ))}
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
+          onClick={closeModal}
+        >
+          <div className="relative max-w-6xl w-full max-h-screen">
+            <button
+              className="absolute -top-12 right-0 text-white text-3xl z-10 hover:text-gray-300 transition-colors"
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+            <img
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              className="w-full h-auto max-h-[80vh] object-contain rounded"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-// Main Page Component
-const LFamilyRooms = () => {
-  const carouselImages = [bedimge, bed6, bed61, bed62];
-
-  return (
-    <section className="bg-gray-100 min-h-screen flex items-center justify-center px-4">
-      <ImageCarousel images={carouselImages} interval={4000} />
-    </section>
-  );
-};
-
-export default LFamilyRooms;
+export default ImageGallery;

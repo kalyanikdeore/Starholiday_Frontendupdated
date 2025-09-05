@@ -3,19 +3,19 @@ import React from "react";
 // Testimonial Video Data with YouTube embed links
 const Saputaravideo = [
   {
-    name: "Family Room",
+    name: "4 Bedded super deluxe AC family rooms",
     video: "https://www.youtube.com/embed/cUXa7jfI4Po",
     review:
       "Highly recommend the Family Room for families! The kids had a great time and everything was well-maintained.",
   },
   {
-    name: "Family Room",
+    name: "4 Bedded super deluxe AC family rooms",
     video: "https://www.youtube.com/embed/KYMMeng1gwc?si=_zJXRo1Arue70QvT",
     review:
       "Our vacation was made special thanks to the warm hospitality and beautiful surroundings!",
   },
   {
-    name: "Family Room",
+    name: "4 Bedded super deluxe AC family rooms",
     video: "https://www.youtube.com/embed/drziU5fC9AQ?si=YfguqHWGpzP0V5OD",
     review:
       "The rooms were spotless, and the service was beyond our expectations. A memorable experience!",
@@ -39,7 +39,7 @@ const Saputaravideocard = ({ name, review, video }) => {
       <h3 className="font-semibold text-lg text-center text-blue-800">
         {name}
       </h3>
-      <p className="text-gray-600 text-center text-base mt-2">{review}</p>
+      {/* <p className="text-gray-600 text-center text-base mt-2">{review}</p> */}
     </div>
   );
 };

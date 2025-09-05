@@ -6,13 +6,13 @@ const Saputaravideo = [
     name: "Super Deluxe 6 Beded AC Rooms",
     video: "https://www.youtube.com/embed/wThS43_ZGY0?si=J5ik11opvS3lTRou",
     review:
-      "The Family Room was spacious, clean, and perfect for our weekend getaway. We loved the service!",
+      "The Family Room was spacious, clean, and perfect for our weekend getaway. ",
   },
   {
     name: "Super Deluxe 6 Beded AC Rooms",
     video: "https://www.youtube.com/embed/AXS0TruTUj4?si=qbn4qIfy15T1_Vuh",
     review:
-      "Our stay in the Family Room exceeded expectations. Beautiful view, comfy beds, and friendly staff!",
+      "Our stay in the Family Room exceeded expectations. Beautiful view, comfy beds, and friendly staff.",
   },
   {
     name: "Super Deluxe 6 Beded AC Rooms",
@@ -39,7 +39,7 @@ const Saputaravideocard = ({ name, review, video }) => {
       <h3 className="font-semibold text-lg text-center text-blue-800">
         {name}
       </h3>
-      <p className="text-gray-600 text-center text-base mt-2">{review}</p>
+      {/* <p className="text-gray-600 text-center text-base mt-2">{review}</p> */}
     </div>
   );
 };
@@ -49,7 +49,7 @@ const Saputaravideosection = () => {
   return (
     <section className="py-12 px-4 text-center bg-gray-100">
       <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-        6 BEDDED FAMILY ROOMS
+        6 Bedded Video's
       </h2>
       <p className="text-gray-700 text-lg max-w-xl mx-auto mb-10">
         Discover what our happy guests have to say about their comfortable and

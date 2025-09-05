@@ -53,13 +53,56 @@ import bedimge from "./Images/6bedimge.jpeg";
 import restaurant22 from "./Images/restaurant22.jpeg";
 import restaurant23 from "./Images/restaurant23.jpeg";
 import restaurant24 from "./Images/restaurant24.jpeg";
+import restaurant11 from "./Images/restaurant11.jpeg";
 import sixbed from "./Images/sixbed.jpeg";
 import service from "./Images/service.jpg";
+import market from "./Images/market.jpg";
+// Restro images
+import restro1 from "./Images/restro1.jpeg";
+import restro2 from "./Images/restro2.jpg";
+import restro3 from "./Images/restro3.jpg";
+import restro4 from "./Images/restro4.jpg";
+import restro5 from "./Images/restro5.jpg";
+import restro6 from "./Images/restro6.jpg";
+import restro7 from "./Images/restro7.jpg";
+import restro8 from "./Images/restro8.jpg";
+import restro9 from "./Images/restro9.jpg";
+import restro10 from "./Images/restro10.jpg";
+import restro11 from "./Images/restro11.jpg";
+import parking from "./Images/parking.jpeg";
+import cctv from "./Images/cctv.jpeg";
+import room from "./Images/room.jpeg";
+import ev from "./Images/ev.jpg";
+import logos from "./Images/logos.jpeg";
+import cou5 from "./Images/cou5.jpeg";
+import cou6 from "./Images/cou6.jpeg";
+import room7 from "./Images/room7.jpeg";
+import six2 from "./Images/  six2.jpg";
 // Export all
 export {
+  six2,
+  room7,
+  cou6,
   service,
+  parking,
+  room,
+  logos,
   logo,
+  cctv,
   sixbed,
+  market,
+  restro1,
+  restaurant11,
+  restro2,
+  restro3,
+  restro4,
+  restro5,
+  restro6,
+  restro7,
+  restro8,
+  restro9,
+  restro10,
+  restro11,
   restaurant22,
   restaurant23,
   restaurant24,
@@ -99,6 +142,7 @@ export {
   bed42,
   bed43,
   bed44,
+  ev,
   bed6,
   bed61,
   bed62,

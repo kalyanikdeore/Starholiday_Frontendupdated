@@ -7,6 +7,15 @@ import {
   FaUtensils,
   FaTree,
   FaHiking,
+  FaMountain,
+  FaUmbrellaBeach,
+  FaParking,
+  FaWifi,
+  FaTv,
+  FaSnowflake,
+  FaShower,
+  FaCocktail,
+  FaConciergeBell,
 } from "react-icons/fa";
 
 // ✅ Import images properly
@@ -58,6 +67,17 @@ import cou2 from "../../assets/Images/cou2.jpg";
 import cou3 from "../../assets/Images/cou-3.jpg";
 import cou4 from "../../assets/Images/cou-4.jpg";
 import cou5 from "../../assets/Images/cou5.jpg";
+import restro1 from "../../assets/Images/restro1.jpeg";
+import restro2 from "../../assets/Images/restro2.jpg";
+import restro3 from "../../assets/Images/restro3.jpg";
+import restro4 from "../../assets/Images/restro4.jpg";
+import restro5 from "../../assets/Images/restro5.jpg";
+import restro6 from "../../assets/Images/restro6.jpg";
+import restro7 from "../../assets/Images/restro7.jpg";
+import restro8 from "../../assets/Images/restro8.jpg";
+import restro9 from "../../assets/Images/restro9.jpg";
+import restro10 from "../../assets/Images/restro10.jpg";
+import restro11 from "../../assets/Images/restro11.jpg";
 
 // ✅ Use imported variables instead of string names
 const staticGalleryImages = [
@@ -66,6 +86,17 @@ const staticGalleryImages = [
   { id: 2, url: restaurant2, category: "Restaurant" },
   { id: 3, url: restaurant3, category: "Restaurant" },
   { id: 4, url: restaurant4, category: "Restaurant" },
+  { id: 43, url: restro1, category: "Restaurant" },
+  { id: 44, url: restro2, category: "Restaurant" },
+  { id: 45, url: restro3, category: "Restaurant" },
+  { id: 46, url: restro4, category: "Restaurant" },
+  { id: 47, url: restro5, category: "Restaurant" },
+  // { id: 48, url: restro6, category: "Restaurant" },
+  // { id: 49, url: restro7, category: "Restaurant" },
+  // { id: 50, url: restro8, category: "Restaurant" },
+  { id: 51, url: restro9, category: "Restaurant" },
+  { id: 52, url: restro10, category: "Restaurant" },
+  { id: 53, url: restro11, category: "Restaurant" },
 
   // Room images
   { id: 5, url: bed4, category: "rooms" },
@@ -76,15 +107,15 @@ const staticGalleryImages = [
   { id: 10, url: bed6, category: "rooms" },
   { id: 11, url: bed61, category: "rooms" },
   { id: 12, url: bed62, category: "rooms" },
-  { id: 13, url: img20210928, category: "rooms" },
-  { id: 14, url: about, category: "rooms" },
+  // { id: 13, url: img20210928, category: "rooms" },
+  // { id: 14, url: about, category: "rooms" },
   { id: 15, url: cou1, category: "rooms" },
   { id: 16, url: cou2, category: "rooms" },
   { id: 17, url: cou3, category: "rooms" },
   { id: 18, url: cou4, category: "rooms" },
   { id: 19, url: cou5, category: "rooms" },
   { id: 20, url: familyroom, category: "rooms" },
-  { id: 21, url: familyroom2, category: "rooms" },
+  // { id: 21, url: familyroom2, category: "rooms" },
   { id: 22, url: familyroom3, category: "rooms" },
 
   // Activities images (Saputara)
@@ -112,23 +143,72 @@ const staticGalleryImages = [
 
 const staticAmenities = [
   {
-    title: "Luxury Pool",
-    description: "Relax and unwind in our temperature-controlled pool.",
-    icon: "pool",
-    images: [familyroom3, familyroom],
-  },
-  {
-    title: "Spacious Rooms",
-    description: "Enjoy comfort in our beautifully designed rooms.",
+    title: "Luxury Rooms",
+    description:
+      "Experience comfort in our beautifully designed rooms with premium amenities.",
     icon: "bed",
-    images: [familyroom, bed4, bed41],
+    images: [familyroom, familyroom3, bed4, bed41, bed42],
   },
   {
-    title: "Delicious Dining",
-    description: "Savor gourmet meals prepared by top chefs.",
+    title: "Restaurant",
+    description:
+      "Savor gourmet meals prepared by our top chefs in a delightful ambiance.",
     icon: "utensils",
-    images: [restaurant, restaurant2, restaurant3],
+    images: [
+      restaurant,
+      restaurant2,
+      restaurant3,
+      restaurant4,
+      restro1,
+      restro2,
+    ],
   },
+  {
+    title: "Saputara",
+    description:
+      "Relax and unwind in our temperature-controlled pool with stunning views.",
+    icon: "pool",
+    images: [saputara1, saputara2, saputara3],
+  },
+  // {
+  //   title: "Mountain Views",
+  //   description:
+  //     "Enjoy breathtaking views of the surrounding mountains from our property.",
+  //   icon: "mountain",
+  //   images: [saputara4, saputara5, saputara6, saputara7],
+  // },
+  // {
+  //   title: "Free WiFi",
+  //   description:
+  //     "Stay connected with high-speed internet access throughout the property.",
+  //   icon: "wifi",
+  //   images: [cou1, cou2, cou3],
+  // },
+  // {
+  //   title: "Air Conditioning",
+  //   description:
+  //     "All rooms are equipped with climate control for your comfort.",
+  //   icon: "ac",
+  //   images: [bed6, bed61, bed62],
+  // },
+  // {
+  //   title: "Parking",
+  //   description: "Complimentary secure parking available for all guests.",
+  //   icon: "parking",
+  //   images: [saputara8, saputara9],
+  // },
+  // {
+  //   title: "Entertainment",
+  //   description: "Flat-screen TVs with satellite channels in all rooms.",
+  //   icon: "tv",
+  //   images: [cou4, cou5],
+  // },
+  // {
+  //   title: "Bar & Lounge",
+  //   description: "Unwind with refreshing drinks and cocktails at our bar.",
+  //   icon: "bar",
+  //   images: [restro3, restro4, restro5],
+  // },
 ];
 
 const staticGuestExperiences = [
@@ -164,8 +244,20 @@ const GalleryPage = () => {
         return <FaSwimmingPool className="text-4xl text-blue-600 mb-4" />;
       case "bed":
         return <FaBed className="text-4xl text-blue-600 mb-4" />;
-      case "utensils":
-        return <FaUtensils className="text-4xl text-blue-600 mb-4" />;
+        // case "utensils":
+        //   return <FaUtensils className="text-4xl text-blue-600 mb-4" />;
+        // case "mountain":
+        //   return <FaMountain className="text-4xl text-blue-600 mb-4" />;
+        // case "wifi":
+        //   return <FaWifi className="text-4xl text-blue-600 mb-4" />;
+        // case "ac":
+        //   return <FaSnowflake className="text-4xl text-blue-600 mb-4" />;
+        // case "parking":
+        //   return <FaParking className="text-4xl text-blue-600 mb-4" />;
+        // case "tv":
+        //   return <FaTv className="text-4xl text-blue-600 mb-4" />;
+        // case "bar":
+        return <FaCocktail className="text-4xl text-blue-600 mb-4" />;
       default:
         return <FaTree className="text-4xl text-blue-600 mb-4" />;
     }
@@ -174,7 +266,7 @@ const GalleryPage = () => {
   return (
     <div className="min-h-screen bg-yellow-50 py-12 px-6">
       <h1 className="text-4xl font-bold text-blue-800 text-center mb-8">
-        Star Holiday
+        Gallery
       </h1>
 
       {/* 1. Filter Buttons */}
@@ -239,8 +331,8 @@ const GalleryPage = () => {
               <div className="p-6 text-center">
                 {getIcon(amenity.icon)}
                 <p className="text-gray-600 mb-4">{amenity.description}</p>
-                <div className="flex gap-2 justify-center">
-                  {amenity.images.map((img, idx) => (
+                <div className="flex gap-2 justify-center flex-wrap">
+                  {amenity.images.slice(0, 4).map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => {
@@ -256,6 +348,13 @@ const GalleryPage = () => {
                       />
                     </button>
                   ))}
+                  {amenity.images.length > 4 && (
+                    <div className="w-16 h-16 rounded bg-blue-100 flex items-center justify-center">
+                      <span className="text-blue-600 font-bold">
+                        +{amenity.images.length - 4}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -275,15 +374,52 @@ const GalleryPage = () => {
                 setSelectedImage(null);
                 setSelectedAmenityImages(null);
               }}
-              className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+              className="absolute -top-12 right-0 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 z-10"
             >
               <FiX size={24} />
             </button>
+
             <img
               src={selectedImage.url}
               alt=""
               className="w-full max-h-[80vh] object-contain"
             />
+
+            {selectedAmenityImages && (
+              <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 mt-4">
+                <button
+                  onClick={() => {
+                    const currentIndex = selectedAmenityImages.findIndex(
+                      (img) => img === selectedImage.url
+                    );
+                    const prevIndex =
+                      currentIndex === 0
+                        ? selectedAmenityImages.length - 1
+                        : currentIndex - 1;
+                    setSelectedImage({ url: selectedAmenityImages[prevIndex] });
+                  }}
+                  className="bg-white bg-opacity-80 p-2 rounded-full"
+                >
+                  <FiChevronLeft size={24} />
+                </button>
+
+                <button
+                  onClick={() => {
+                    const currentIndex = selectedAmenityImages.findIndex(
+                      (img) => img === selectedImage.url
+                    );
+                    const nextIndex =
+                      currentIndex === selectedAmenityImages.length - 1
+                        ? 0
+                        : currentIndex + 1;
+                    setSelectedImage({ url: selectedAmenityImages[nextIndex] });
+                  }}
+                  className="bg-white bg-opacity-80 p-2 rounded-full"
+                >
+                  <FiChevronRight size={24} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -297,7 +433,7 @@ const GalleryPage = () => {
           >
             <button
               onClick={() => setShowGuestExpSlider(false)}
-              className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+              className="absolute -top-12 right-0 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
             >
               <FiX size={24} />
             </button>

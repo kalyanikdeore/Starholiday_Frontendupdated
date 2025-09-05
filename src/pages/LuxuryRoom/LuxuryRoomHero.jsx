@@ -17,7 +17,7 @@ const ContactHero = () => {
       {/* Centered Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
         <h1 className="text-4xl font-bold text-white mt-34 tracking-wide">
-          6 BEDDED FAMILY ROOM
+          6 Bedded super deluxe AC family Suite
         </h1>
       </div>
     </div>

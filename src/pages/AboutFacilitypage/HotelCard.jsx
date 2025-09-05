@@ -26,8 +26,8 @@ const HotelCard = () => {
           <ul className="list-disc pl-5 space-y-2 text-gray-700 text-base">
             <li>Very Spacious Room in Star Holiday Saputara.</li>
             <li>
-              A.C Restaurant Serving Gujarati, Punjabi, South Indian & Chinese
-              Food.
+              A.C Restaurant Serving Maharashtrian, Gujarati, Rajasthani, and
+              Chinese cuisines Food.
             </li>
             <li>Vast Hotel industry Experience.</li>
             <li>Well trained & experienced Team.</li>

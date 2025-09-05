@@ -21,17 +21,19 @@ const ShilpiResort = () => {
 
             <div className="space-y-4 text-gray-700">
               <p className="text-lg leading-relaxed">
-                At Star Holiday Resort, we believe in creating unforgettable
-                memories through luxury, comfort, and exceptional service.
-                Located in the heart of Saputara, our resort offers the perfect
-                getaway with a blend of traditional hospitality and modern
-                amenities.
+                Saputara is Gujarat's sole hill station, situated in the
+                Sahyadri range (Western Ghats) at a height of about 1,000
+                meters, renowned for its picturesque landscapes and pleasant
+                climate, particularly from October to February. Key attractions
+                include Saputara Lake for boating, the Artist Village showcasing
+                tribal arts, the Governor's Hill Trail for panoramic views, and
+                various gardens like the Step Garden and Lake Garden.
               </p>
               <p className="text-lg leading-relaxed">
-                With years of experience in hosting families, solo travelers,
-                and corporate guests, we take pride in our secure and peaceful
-                environment. Our team is committed to ensuring your stay is not
-                only comfortable but truly memorable.
+                Saputara Lake: The centerpiece of the town, perfect for boating
+                Saputara Waterfall: Experience the beauty of gushing waterfalls,
+                especially during the monsoon season. and a peaceful stroll
+                around its landscaped gardens.
               </p>
             </div>
           </div>

@@ -12,19 +12,19 @@ import sixbed from "../../assets/Images/sixbed.jpeg";
 const rooms = [
   {
     id: "couple_room",
-    title: "Couple Room",
+    title: "2 Bedded super deluxe AC couple rooms",
     image: cou2,
     path: "/Coupleroom",
   },
   {
     id: "4_bedrooms_family_room",
-    title: "4 Bedded Family Room",
+    title: "4 Bedded super deluxe AC family rooms",
     image: bed4,
     path: "/family_room",
   },
   {
     id: "6_bedrooms_family_room",
-    title: "6 Bedded Family Room",
+    title: "6 Bedded super deluxe AC family Suite",
     image: sixbed,
     path: "/6_bedrooms",
   },

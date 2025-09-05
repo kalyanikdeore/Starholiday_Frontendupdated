@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
   ChevronRight,
   Leaf,
   Users,
-  BookOpen,
   Utensils,
-  Hotel,
   Star,
   MapPin,
 } from "lucide-react";
@@ -18,9 +17,10 @@ import restaurant23 from "../../assets/Images/restaurant23.jpeg";
 import saputara10 from "../../assets/Images/saputara10.jpg";
 import saputara from "../../assets/Images/saputara.jpg";
 import saputara12 from "../../assets/Images/saputara12.jpg";
-// import restaurant24 from "../../assets/Images/restaurant24.jpg";
 
-const HeroSection = () => {
+const HeroSection = ({ scrollToResortImage }) => {
+  const navigate = useNavigate();
+
   const heroContent = [
     {
       id: 1,
@@ -28,9 +28,9 @@ const HeroSection = () => {
       title: "Welcome to Star Holiday Home Hill Resort",
       subtitle: "Luxury Amidst Nature's Splendor",
       description:
-        "Experience premium hospitality at Gujarat's only hill station, nestled in the Sahyadri range of Western Ghats at 3,500 feet elevation.",
+        "Experience premium hospitality at Saputara only hill station, nestled in the Sahyadri range of Western Ghats at 3,500 feet elevation.",
       ctaText: "Book Your Stay",
-      ctaLink: "#booking",
+      ctaLink: "/bookform",
       icon: <Leaf className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
     },
     {
@@ -39,9 +39,9 @@ const HeroSection = () => {
       title: "Star Restaurant - Culinary Excellence",
       subtitle: "Delicious Food in Welcoming Ambiance",
       description:
-        "Dine in comfort and style at our in-house restaurant, featuring local Gujarati cuisine and panoramic views of Saputara.",
+        "Dine in comfort and style at our in-house restaurant, serving Maharashtrian, Gujarati, Rajasthani, and Chinese cuisines with panoramic views of Saputara.",
       ctaText: "View Menu",
-      ctaLink: "#restaurant",
+      ctaLink: "#resort-image", // Changed to anchor link
       icon: <Utensils className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
     },
     {
@@ -51,8 +51,8 @@ const HeroSection = () => {
       subtitle: "Specialized Packages Available",
       description:
         "Exclusive discounts for schools, colleges, family groups, and corporate meetings with customized packages to suit your needs.",
-      ctaText: "Inquire About Groups",
-      ctaLink: "#group-booking",
+      ctaText: "Inquire ",
+      ctaLink: "/contact_us",
       icon: <Users className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
     },
   ];
@@ -93,21 +93,21 @@ const HeroSection = () => {
     }
   };
 
+  // Function to handle navigation
+  const handleNavigation = (path) => {
+    if (path === "#resort-image") {
+      // If it's the anchor link, scroll to the ResortImage component
+      scrollToResortImage();
+    } else {
+      // Otherwise, navigate to the route
+      navigate(path);
+    }
+  };
+
   const currentItem = heroContent[currentIndex] || {};
 
   return (
     <div className="relative z-0 w-full overflow-hidden">
-      {/* Welcome Banner */}
-      {/* <div className="absolute top-0 left-0 w-full z-30 bg-gradient-to-r from-green-800 to-green-600 py-3 px-4 flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-          <Star className="w-5 h-5 text-yellow-300 animate-pulse" />
-          <span className="text-white font-semibold text-lg tracking-wide">
-            Welcome to Star Holiday Homes
-          </span>
-          <MapPin className="w-5 h-5 text-yellow-300" />
-        </div>
-      </div> */}
-
       {/* Main Hero Slider */}
       <div
         className="relative w-full h-[100vh] flex items-center"
@@ -192,11 +192,11 @@ const HeroSection = () => {
             </motion.p>
 
             <motion.button
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              onClick={() => (window.location.href = currentItem.ctaLink)}
+              onClick={() => handleNavigation(currentItem.ctaLink)}
             >
               {currentItem.ctaText}
             </motion.button>

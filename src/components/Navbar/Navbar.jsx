@@ -22,6 +22,7 @@ const navItems = [
   { label: "FACILITIES", path: "/about_facility" },
   { label: "GALLERY", path: "/gallery" },
   { label: "SAPUTARA", path: "/Saputara" },
+  { label: "MONSOONFESTIVAL", path: "/festival" },
   { label: "CONTACT US", path: "/contact_us" },
 ];
 
@@ -37,7 +38,7 @@ const TopBar = ({ hideTopBar }) => {
         {/* Location + Weather */}
         <div className="flex justify-center md:justify-start items-center space-x-3 text-xs md:text-sm">
           <span>🌤️ 18 °C</span>
-          <span>📍 Star Holiday Resort, Saputara.</span>
+          <span>📍 Star Holiday Home Resort, Saputara.</span>
         </div>
 
         {/* Contact + Social */}

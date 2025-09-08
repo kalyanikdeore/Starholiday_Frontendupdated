@@ -293,7 +293,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Email</h3>
-                  <p className="text-gray-600 mt-1">starholiday@gmail.com</p>
+                  <p className="text-gray-600 mt-1">
+                    starholidayhome@gmail.com
+                  </p>
                 </div>
               </div>
 

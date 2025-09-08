@@ -53,7 +53,7 @@ const amenities = [
     id: 6,
     img: saputara10,
     title: "Hot Running Water",
-    subtitle: "24/7 Availability",
+    subtitle: "Hot water available daily time 7 AM to 9 AM",
   },
   {
     id: 7,

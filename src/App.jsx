@@ -24,6 +24,7 @@ import LuxuryRoom from "./pages/LuxuryRoom/LuxuryRoom";
 // import Coupleroom from "./pages/Coupleroom/Coupleroom";
 // import Coupleroom from "./pages/Coupleroom/Coupleroom";
 import Coupleroom from "./pages/Coupleroom/Coupleroom";
+import Festival from "./pages/Festival/Festival";
 import Bookfrom from "./pages/Book/Bookfrom";
 import Bookfromhero from "./pages/Book/Bookfromhero";
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="Saputara" element={<Saputarapage />} />
         <Route path="6_bedrooms" element={<LuxuryRoom />} />
         <Route path="Coupleroom" element={<Coupleroom />} />
+        <Route path="Festival" element={<Festival />} />
         <Route path="bookform" element={<Bookfrom />} />
         <Route path="bookform" element={<Bookfromhero />} />
       </Route>

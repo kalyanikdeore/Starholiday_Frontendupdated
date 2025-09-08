@@ -137,7 +137,7 @@ const CoupleRoomPage = () => {
               6 Bedded super deluxe AC family Suite
             </h2>
             <p className="text-gray-600 mb-6 text-lg italic border-l-4 border-blue-500 pl-4">
-              " Perfect for group vacations, this suite brings everyone together
+              "Perfect for group vacations, this suite brings everyone together
               while ensuring ample space and convenience for all. "
             </p>
 
@@ -162,9 +162,11 @@ const CoupleRoomPage = () => {
                   Room Specs
                 </h4>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>✔ Size: 35 m² / 376 ft²</li>
-
-                  <li>✔ Twin-size bed</li>
+                  <li>✔ Size: 100 ft²</li>
+                  <li>
+                    ✔ 3 double-bedded rooms, 1 two-bedded room, and 1
+                    four-bedded room.
+                  </li>
                 </ul>
               </div>
 
@@ -174,6 +176,11 @@ const CoupleRoomPage = () => {
                   Amenities
                 </h4>
                 <ul className="space-y-2 text-gray-700 text-sm">
+                  <li>✔ Gallery</li>
+
+                  <li>✔ 2 Star Super delux Ac Non Ac Rooms </li>
+                  <li>✔ Ample Parking </li>
+                  <li>✔ Pure Veg Family Restaurant</li>
                   <li>✔ Hot Running Water</li>
                   <li>✔ WiFi</li>
                 </ul>

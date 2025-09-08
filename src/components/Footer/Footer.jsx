@@ -90,7 +90,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-b from-[#00486c] to-[#003553] text-white w-full py-12 px-4 relative overflow-hidden">
+    <footer className="z-0 bg-gradient-to-b from-[#00486c] to-[#003553] text-white w-full py-12 px-4 relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff9d00] via-[#ff6b00] to-[#ff9d00]"></div>
 
@@ -139,7 +139,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <FaEnvelope className="mr-3 text-[#ff9d00]" size={iconSize} />
-                <p>info@starholidayresort.com</p>
+                <p>starholidayhome@gmail.com</p>
               </div>
             </div>
           </div>
@@ -197,7 +197,7 @@ const Footer = () => {
             {/* Social Media */}
             <div className="mb-4">
               <p className="text-[13px] text-white-400 tracking-wider mb-3">
-                CONNECT WITH STAR HOLIDAY Home RESORT
+                CONNECT WITH STAR HOLIDAY HOME RESORT
               </p>
               <div className="flex space-x-3">
                 {socials.map((social, i) => (

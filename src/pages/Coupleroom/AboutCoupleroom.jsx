@@ -160,9 +160,9 @@ const CoupleRoomPage = () => {
                   Room Specs
                 </h4>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>✔ Size: 35 m² / 376 ft²</li>
+                  <li>✔ Size: 10 m² / 15.4 ft²</li>
 
-                  <li>✔ twin size bed</li>
+                  <li>✔1 twin bed</li>
                 </ul>
               </div>
 
@@ -172,9 +172,11 @@ const CoupleRoomPage = () => {
                   Amenities
                 </h4>
                 <ul className="space-y-2 text-gray-700 text-sm">
+                  <li>✔ 2 Star Super delux Ac Non Ac Rooms </li>
+                  <li>✔ Ample Parking </li>
+                  <li>✔ Pure Veg Family Restaurant</li>
                   <li>✔ Hot Running Water</li>
-
-                  <li>✔ Wi-Fi</li>
+                  <li>✔ WiFi</li>
                 </ul>
               </div>
             </div>

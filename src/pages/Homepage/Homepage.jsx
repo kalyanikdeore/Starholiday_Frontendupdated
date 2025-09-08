@@ -28,8 +28,9 @@ function Home() {
       <HotelBookingCard />
       <CTA />
       <VideoSection />
-      <AboutUsSection />
       <LuxuryRooms />
+      <AboutUsSection />
+
       <CTA />
 
       {/* Add ref to Resortimage component */}

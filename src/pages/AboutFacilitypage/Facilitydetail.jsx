@@ -58,9 +58,9 @@ const Facilitydetail = {
     {
       id: 6,
       name: "Hot Running Water",
-      subtitle: "24/7 Availability",
+      subtitle: "Hot water available daily time 7 AM to 9 AM",
       description:
-        "Stay refreshed anytime with 24/7 hot water service in all rooms. Our geothermal-inspired heating system reduces environmental impact while ensuring guest comfort, mirroring sustainable practices at leading eco-resorts .",
+        "Stay refreshed anytime with 7 AM to 9 AM hot water service in all rooms. Our geothermal-inspired heating system reduces environmental impact while ensuring guest comfort, mirroring sustainable practices at leading eco-resorts .",
       image: saputara10,
     },
     {
@@ -108,7 +108,7 @@ const Facilitydetail = {
       name: "Reasonable Rates",
       subtitle: "Budget Friendly",
       description:
-        "Stay in comfort with affordable pricing suitable for every traveler.  Saputara accommodations, we offer competitive pricing while maintaining quality service .",
+        "Stay in comfort with affordable pricing suitable for every traveler.  Saputara accommodations, Budget Freindly and family we offer competitive pricing while maintaining quality service .",
       image: saputara2,
     },
     {

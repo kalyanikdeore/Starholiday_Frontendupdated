@@ -21,16 +21,16 @@ const images = [
     description:
       "Educational and fun packages for student groups with safety priority",
   },
-  {
-    title: "Corporate Meets",
-    url: "https://amsimr.org/wp-content/uploads/industrial-visit-042024-1.jpg",
-    description: "Professional settings for business meetings and conferences",
-  },
-  {
-    title: "Multipurpose Hall",
-    url: "https://content.jdmagicbox.com/comp/ichalkaranji/m4/9999px230.x230.220923114632.y8m4/catalogue/shubhankaroti-multipurpose-hall-ichalkaranji-ho-ichalkaranji-banquet-halls-swh5y8gb68.jpg",
-    description: "Spacious venue suitable for various events and gatherings",
-  },
+  // {
+  //   title: "Corporate Meets",
+  //   url: "https://amsimr.org/wp-content/uploads/industrial-visit-042024-1.jpg",
+  //   description: "Professional settings for business meetings and conferences",
+  // },
+  // {
+  //   title: "Multipurpose Hall",
+  //   url: "https://content.jdmagicbox.com/comp/ichalkaranji/m4/9999px230.x230.220923114632.y8m4/catalogue/shubhankaroti-multipurpose-hall-ichalkaranji-ho-ichalkaranji-banquet-halls-swh5y8gb68.jpg",
+  //   description: "Spacious venue suitable for various events and gatherings",
+  // },
   {
     title: "Get Together",
     url: "https://pix10.agoda.net/hotelImages/38712719/0/21c36edb9d91845ea13e6107c4aaa04a.jpg?ce=0&s=414x232&ar=16x9",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,57 +9,71 @@ import {
   Utensils,
   Star,
   MapPin,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-
-// Import your local images
-import restaurant22 from "../../assets/Images/restaurant22.jpeg";
-import restaurant23 from "../../assets/Images/restaurant23.jpeg";
-import saputara10 from "../../assets/Images/saputara10.jpg";
-import saputara from "../../assets/Images/saputara.jpg";
-import saputara12 from "../../assets/Images/saputara12.jpg";
 
 const HeroSection = ({ scrollToResortImage }) => {
   const navigate = useNavigate();
-
-  const heroContent = [
-    {
-      id: 1,
-      image_url: restaurant23,
-      title: "Welcome to Star Holiday Home Hill Resort",
-      subtitle: "Luxury Amidst Nature's Splendor",
-      description:
-        "Experience premium hospitality at Saputara only hill station, nestled in the Sahyadri range of Western Ghats at 3,500 feet elevation.",
-      ctaText: "Book Your Stay",
-      ctaLink: "/bookform",
-      icon: <Leaf className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
-    },
-    {
-      id: 2,
-      image_url: restaurant22,
-      title: "Star Restaurant - Culinary Excellence",
-      subtitle: "Delicious Food in Welcoming Ambiance",
-      description:
-        "Dine in comfort and style at our in-house restaurant, serving Maharashtrian, Gujarati, Rajasthani, and Chinese cuisines with panoramic views of Saputara.",
-      ctaText: "View Menu",
-      ctaLink: "#resort-image", // Changed to anchor link
-      icon: <Utensils className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
-    },
-    {
-      id: 3,
-      image_url: saputara,
-      title: "Group Bookings & Corporate Events",
-      subtitle: "Specialized Packages Available",
-      description:
-        "Exclusive discounts for schools, colleges, family groups, and corporate meetings with customized packages to suit your needs.",
-      ctaText: "Inquire ",
-      ctaLink: "/contact_us",
-      icon: <Users className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
-    },
-  ];
-
+  const [heroContent, setHeroContent] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch hero content from Laravel API
+  useEffect(() => {
+    const fetchHeroContent = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(
+          "http://localhost:8000/api/hero-sections",
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Server returned ${response.status}: ${response.statusText}`
+          );
+        }
+
+        const data = await response.json();
+
+        if (data && Array.isArray(data)) {
+          setHeroContent(data);
+        } else {
+          throw new Error("Invalid data format received from server");
+        }
+      } catch (error) {
+        console.error("Error fetching hero content:", error);
+        setError(error.message);
+
+        // Fallback to default content if API fails
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroContent();
+  }, []);
+
+  // Map icon names to actual components
+  const iconMap = {
+    leaf: <Leaf className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
+    utensils: <Utensils className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
+    users: <Users className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
+    star: <Star className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
+    "map-pin": <MapPin className="w-8 h-8 md:w-12 md:h-12 text-green-300" />,
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -75,7 +89,7 @@ const HeroSection = ({ scrollToResortImage }) => {
     if (!isAutoPlaying || heroContent.length === 0) return;
     const interval = setInterval(nextImage, 5000);
     return () => clearInterval(interval);
-  }, [currentIndex, isAutoPlaying]);
+  }, [currentIndex, isAutoPlaying, heroContent]);
 
   const nextImage = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % heroContent.length);
@@ -96,13 +110,69 @@ const HeroSection = ({ scrollToResortImage }) => {
   // Function to handle navigation
   const handleNavigation = (path) => {
     if (path === "#resort-image") {
-      // If it's the anchor link, scroll to the ResortImage component
       scrollToResortImage();
     } else {
-      // Otherwise, navigate to the route
       navigate(path);
     }
   };
+
+  // Function to get proper image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return "/images/fallback-hero.jpg";
+
+    // If it's already a full URL (http/https)
+    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+      return imagePath;
+    }
+
+    // If it's a storage path (starts with hero-images/)
+    if (imagePath.startsWith("hero-images/")) {
+      return `/storage/${imagePath}`;
+    }
+
+    // If it's already a relative path from storage
+    if (imagePath.startsWith("storage/")) {
+      return `/${imagePath}`;
+    }
+
+    // Default fallback
+    return "/images/fallback-hero.jpg";
+  };
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+          <p className="text-gray-600">Loading hero content...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && heroContent.length === 0) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-lg shadow-md">
+          <AlertCircle className="w-12 h-12 text-red-500" />
+          <h3 className="text-xl font-semibold text-gray-800">
+            Connection Error
+          </h3>
+          <p className="text-gray-600 text-center max-w-md">
+            Unable to fetch hero content from the server. Please check your API
+            configuration.
+          </p>
+          <p className="text-sm text-gray-500">Error: {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 mt-4 text-white bg-orange-500 rounded-md hover:bg-orange-600"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const currentItem = heroContent[currentIndex] || {};
 
@@ -124,11 +194,14 @@ const HeroSection = ({ scrollToResortImage }) => {
             transition={{ duration: 0.5 }}
           >
             <img
-              src={currentItem.image_url}
+              src={getImageUrl(currentItem.image_url)}
               alt={currentItem.title}
               className="h-full w-full object-cover object-center"
+              onError={(e) => {
+                e.target.src = "/images/fallback-hero.jpg";
+              }}
             />
-            <div className="absolute inset-0 "></div>
+            <div className="absolute inset-0 bg-black/40"></div>
           </motion.div>
         </AnimatePresence>
 
@@ -154,7 +227,7 @@ const HeroSection = ({ scrollToResortImage }) => {
           style={{ marginBottom: isMobile ? "-100px" : "-148px" }}
         >
           <div
-            className="max-w-2xl bg-black/10  rounded-2xl p-6 md:p-8 shadow-xl"
+            className="max-w-2xl bg-black/20 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl"
             style={{ marginLeft: isMobile ? "20px" : "60px" }}
           >
             <motion.div
@@ -163,7 +236,7 @@ const HeroSection = ({ scrollToResortImage }) => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
-              {currentItem.icon}
+              {currentItem.icon ? iconMap[currentItem.icon] : null}
               <span className="ml-3 text-green-300 font-semibold text-lg md:text-xl tracking-wide">
                 {currentItem.subtitle}
               </span>
@@ -192,13 +265,13 @@ const HeroSection = ({ scrollToResortImage }) => {
             </motion.p>
 
             <motion.button
-              className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              onClick={() => handleNavigation(currentItem.ctaLink)}
+              onClick={() => handleNavigation(currentItem.cta_link)}
             >
-              {currentItem.ctaText}
+              {currentItem.cta_text}
             </motion.button>
           </div>
         </div>

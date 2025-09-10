@@ -30,14 +30,11 @@ function Home() {
       <VideoSection />
       <LuxuryRooms />
       <AboutUsSection />
-
       <CTA />
-
       {/* Add ref to Resortimage component */}
       <div ref={resortImageRef}>
         <Resortimage />
       </div>
-
       <Amenities />
       {/* Remove AboutFacilitypage from here since we'll navigate to it separately */}
       <CTA />

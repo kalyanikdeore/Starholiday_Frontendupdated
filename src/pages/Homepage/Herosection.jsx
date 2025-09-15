@@ -201,7 +201,7 @@ const HeroSection = ({ scrollToResortImage }) => {
                 e.target.src = "/images/fallback-hero.jpg";
               }}
             />
-            <div className="absolute inset-0 bg-black/40"></div>
+            <div className="absolute inset-0 "></div>
           </motion.div>
         </AnimatePresence>
 
@@ -227,7 +227,7 @@ const HeroSection = ({ scrollToResortImage }) => {
           style={{ marginBottom: isMobile ? "-100px" : "-148px" }}
         >
           <div
-            className="max-w-2xl bg-black/20 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl"
+            className="max-w-2xl bg-black/10  rounded-2xl p-6 md:p-8 shadow-xl"
             style={{ marginLeft: isMobile ? "20px" : "60px" }}
           >
             <motion.div

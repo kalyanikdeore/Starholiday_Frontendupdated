@@ -19,27 +19,25 @@ function HotelBookingCard() {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest",
             },
           }
         );
 
         if (!response.ok) {
-          throw new Error(
-            `Server returned ${response.status}: ${response.statusText}`
-          );
+          throw new Error(`Failed to fetch data: ${response.status}`);
         }
 
         const data = await response.json();
 
-        if (data && typeof data === "object") {
+        if (data && Object.keys(data).length > 0) {
           setSection(data);
         } else {
-          throw new Error("Invalid data format received from server");
+          setSection(null);
         }
       } catch (error) {
         console.error("Error fetching hotel booking section:", error);
         setError(error.message);
+        setSection(null);
       } finally {
         setLoading(false);
       }
@@ -48,21 +46,62 @@ function HotelBookingCard() {
     fetchHotelSection();
   }, []);
 
+  // Function to extract YouTube video ID from any URL format
+  const getYouTubeVideoId = (url) => {
+    if (!url) return null;
+
+    // Match YouTube ID from various URL patterns
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|\/embed\/|youtu\.be\/)([^&?#]+)/,
+      /(?:youtube\.com\/embed\/)([^&?#]+)/,
+      /(?:youtube\.com\/v\/)([^&?#]+)/,
+      /(?:youtube\.com\/watch\?.*v=)([^&?#]+)/,
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        return match[1];
+      }
+    }
+
+    return null;
+  };
+
+  // Function to create proper embed URL
+  const getYouTubeEmbedUrl = (url) => {
+    const videoId = getYouTubeVideoId(url);
+    if (!videoId) return null;
+
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&rel=0&modestbranding=1`;
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-500">Loading hotel info...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
-  if (error && !section) {
+  if (error) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-red-500">Failed to load content: {error}</p>
+        <p className="text-red-500">Error loading content: {error}</p>
       </div>
     );
   }
+
+  if (!section) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">No hotel booking information available</p>
+      </div>
+    );
+  }
+
+  const embedUrl =
+    section.video_type === "url" ? getYouTubeEmbedUrl(section.video_url) : null;
 
   return (
     <div className="flex flex-col items-center justify-center text-center mt-10 px-4">
@@ -72,37 +111,36 @@ function HotelBookingCard() {
       </h2>
 
       {/* Description */}
-      {section.description && (
+      {/* {section.description && (
         <p className="max-w-3xl text-gray-700 mb-6">{section.description}</p>
-      )}
+      )} */}
 
       {/* Button */}
       <div className="pt-4">
         <button
           onClick={() => navigate(section.button_link || "/bookform")}
-          className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-2 px-8 mb-8 rounded-full text-sm shadow-md transition-colors duration-300"
+          className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 px-10 mb-8 rounded-full text-sm shadow-md hover:from-orange-600 hover:to-yellow-600 transition-colors duration-300"
         >
           {section.button_text || "BOOK NOW"}
         </button>
       </div>
 
       {/* Video Section */}
-      <div className="w-full max-w-7xl">
-        <div className="aspect-video rounded-lg shadow-lg overflow-hidden">
-          {section.video_type === "url" && section.video_url ? (
+      <div className="w-full max-w-6xl mx-auto">
+        <div className="aspect-video rounded-lg shadow-lg overflow-hidden bg-gray-200">
+          {section.video_type === "url" && embedUrl ? (
             <iframe
               className="w-full h-full"
-              src={`${section.video_url}?autoplay=1&mute=1&loop=1&playlist=${
-                section.video_url.split("embed/")[1] || ""
-              }`}
+              src={embedUrl}
               title="Hotel Video Tour"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            ></iframe>
+              loading="lazy"
+            />
           ) : section.video_type === "upload" && section.uploaded_video ? (
             <video
-              className="w-full h-full"
+              className="w-full h-full object-cover"
               src={`http://localhost:8000/storage/${section.uploaded_video}`}
               autoPlay
               muted
@@ -110,7 +148,9 @@ function HotelBookingCard() {
               controls={false}
             />
           ) : (
-            <p className="text-gray-500">No video available</p>
+            <div className="w-full h-full flex items-center justify-center bg-gray-100">
+              <p className="text-gray-500 text-lg">No video available</p>
+            </div>
           )}
         </div>
       </div>

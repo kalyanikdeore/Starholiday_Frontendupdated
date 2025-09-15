@@ -9,7 +9,7 @@ import bed4 from "../../assets/Images/4bed.jpg";
 import bedimge from "../../assets/Images/6bedimge.jpeg";
 import sixbed from "../../assets/Images/sixbed.jpeg";
 
-const rooms = [
+const ourluxuryrooms = [
   {
     id: "couple_room",
     title: "2 Bedded super deluxe AC couple rooms",
@@ -68,9 +68,9 @@ const LuxuryRooms = () => {
         </p>
       </div>
 
-      {/* Room cards */}
+      {/* ourluxuryrooms cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {rooms.map((room, index) => (
+        {ourluxuryrooms.map((room, index) => (
           <motion.div
             key={room.id}
             initial={{ opacity: 0, y: 40 }}

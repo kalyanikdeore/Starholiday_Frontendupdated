@@ -16,7 +16,7 @@ const navItems = [
     submenu: [
       { label: "2 Bedded super deluxe AC couple rooms", path: "/Coupleroom" },
       { label: "4 Bedded super deluxe AC family rooms", path: "/family_room" },
-      { label: "6 Bedded super deluxe AC family Suite", path: "/6_bedrooms" },
+      { label: "6 Bedded super deluxe AC family Suite", path: "/rooms" },
     ],
   },
   { label: "FACILITIES", path: "/about_facility" },

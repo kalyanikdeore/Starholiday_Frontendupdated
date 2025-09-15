@@ -1,35 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-import restaurant2 from "../../assets/Images/restaurant2.jpeg";
+const AboutResort = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const ShilpiResort = () => {
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/about-resort"
+        );
+        setAboutData(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchAboutData();
+  }, []);
+
+  // Function to get the full image URL
+  const getImageUrl = (path) => {
+    if (!path) return "";
+    // If it's already a full URL, return it
+    if (path.startsWith("http")) return path;
+    // Otherwise, construct the URL from the storage path
+    return `http://localhost:8000/storage/${path}`;
+  };
+
+  if (loading) return <div className="text-center p-6">Loading...</div>;
+  if (error)
+    return <div className="text-center p-6 text-red-500">Error: {error}</div>;
+  if (!aboutData) return <div className="text-center p-6">No data found</div>;
+
   return (
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">About Us</h1>
-        <h5 className="font-bold text-1xl text-blue-600">
-          About Star Holiday Home Resort - SAPUTARA, GUJARAT, INDIA.
-        </h5>
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          {aboutData.title}
+        </h1>
+        <h5 className="font-bold text-1xl text-blue-600">{aboutData.title}</h5>
       </div>
 
       {/* Main Content */}
       <div className="mb-8">
         <p className="text-lg text-center text-gray-700 mb-4">
-          At <strong>Star Holiday Home Hotel, Saputara</strong>,Step into a
-          world of culinary diversity where every dish reflects tradition,
-          culture, and taste. Our restaurant brings you an exquisite journey
-          through Maharashtrian, Gujarati, Rajasthani, and Chinese cuisines,
-          crafted to delight your senses.
+          {aboutData.description}
         </p>
       </div>
 
       {/* Image Section */}
-      <div className="relative w-full max-w-6xl mx-auto mb-8">
+      <div className="relative w-full max-w-6xl  mx-auto mb-8">
         <img
-          src={restaurant2}
+          src={getImageUrl(aboutData.image_path)}
           alt="Star Holiday Resort"
-          className="w-full h-110 rounded-lg shadow-lg object-cover"
+          className="w-full h-109 rounded-lg shadow-lg object-cover"
         />
       </div>
 
@@ -39,4 +69,4 @@ const ShilpiResort = () => {
   );
 };
 
-export default ShilpiResort;
+export default AboutResort;

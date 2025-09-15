@@ -1,17 +1,30 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import CountUp from "react-countup";
 import { motion, useInView } from "framer-motion";
 
-const stats = [
-  { number: 25000, label: "Guest Stays", suffix: "+" },
-  { number: 15000, label: "Rooms Booked", suffix: "+" },
-  { number: 25000, label: "Meals Served", suffix: "+" },
-  { number: 4.9, label: "Guest Rating", suffix: "/5", decimals: 1 },
-];
-
-const Impact = () => {
+const HotelStatistics = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { triggerOnce: true, threshold: 0.1 });
+  const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/api/hotel-statistics"
+        );
+        const data = await response.json();
+        setStats(data);
+      } catch (error) {
+        console.error("Error fetching statistics:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -29,6 +42,19 @@ const Impact = () => {
       transition: { duration: 0.6, ease: "easeOut" },
     },
   };
+
+  if (loading) {
+    return (
+      <section
+        className="py-20 bg-gradient-to-br from-[#2c5554] to-[#436f6e] text-[#e0dbdb] relative overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+          <div className="text-white">Loading statistics...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -78,43 +104,62 @@ const Impact = () => {
         </div>
 
         {/* Centered Stats Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-items-center mx-auto max-w-6xl"
-          style={{ position: "relative", zIndex: 4 }}
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center 
+        {stats.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-items-center mx-auto max-w-6xl"
+            style={{ position: "relative", zIndex: 4 }}
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center 
                          border border-white/20 hover:bg-white/15 transition-all 
                          duration-300 ease-in-out transform hover:-translate-y-1 
                          shadow-lg hover:shadow-xl flex flex-col justify-center items-center w-64"
-              style={{ zIndex: 5 }}
-            >
-              <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
-                {isInView && (
-                  <CountUp
-                    end={stat.number}
-                    duration={2.5}
-                    decimals={stat.decimals || 0}
-                    suffix={stat.suffix || ""}
-                    delay={index * 0.2}
-                  />
-                )}
-              </div>
-              <div className="text-sm md:text-base font-medium text-[#d3a070] uppercase tracking-wider">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                style={{ zIndex: 5 }}
+              >
+                <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
+                  {isInView && (
+                    <CountUp
+                      end={stat.number}
+                      duration={2.5}
+                      decimals={stat.decimals || 0}
+                      suffix={stat.suffix || ""}
+                      delay={index * 0.2}
+                      formattingFn={(value) =>
+                        stat.decimals > 0
+                          ? value.toFixed(stat.decimals) + (stat.suffix || "")
+                          : Math.round(value) + (stat.suffix || "")
+                      }
+                    />
+                  )}
+                  {!isInView && (
+                    <span>
+                      {stat.decimals > 0
+                        ? stat.number.toFixed(stat.decimals)
+                        : Math.round(stat.number)}
+                      {stat.suffix || ""}
+                    </span>
+                  )}
+                </div>
+                <div className="text-sm md:text-base font-medium text-[#d3a070] uppercase tracking-wider">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center text-white">
+            No statistics available at the moment.
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
-export default Impact;
+export default HotelStatistics;

@@ -27,6 +27,8 @@ import Coupleroom from "./pages/Coupleroom/Coupleroom";
 import Festival from "./pages/Festival/Festival";
 import Bookfrom from "./pages/Book/Bookfrom";
 import Bookfromhero from "./pages/Book/Bookfromhero";
+import Roompage from "./pages/Roompage/Roompage";
+
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -48,6 +50,8 @@ function App() {
         <Route path="Festival" element={<Festival />} />
         <Route path="bookform" element={<Bookfrom />} />
         <Route path="bookform" element={<Bookfromhero />} />
+        <Route path="/rooms" element={<Roompage />} /> {/* Main rooms page */}
+        {/* <Route path="/room/:roomId" element={<Roompagedetails />} /> {/* Individual room detai */}
       </Route>
     )
   );

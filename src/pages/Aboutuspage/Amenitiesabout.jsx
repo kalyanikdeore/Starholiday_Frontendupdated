@@ -1,111 +1,127 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-
-// Images
-import saputara2 from "../../assets/Images/saputara2.jpg";
-import saputara3 from "../../assets/Images/saputara3.jpg";
-import sixbed from "../../assets/Images/sixbed.jpeg";
-import market from "../../assets/Images/market.jpg";
-import restaurant2 from "../../assets/Images/restaurant2.jpeg";
-import room from "../../assets/Images/room.jpeg";
-import saputara10 from "../../assets/Images/saputara10.jpg";
-import restaurant23 from "../../assets/Images/restaurant23.jpeg";
-import saputara from "../../assets/Images/saputara.jpg";
-import online from "../../assets/Images/online.jpg";
-import parking from "../../assets/Images/parking.jpeg";
-import cctv from "../../assets/Images/cctv.jpeg";
-import ev from "../../assets/Images/ev.jpg";
-
-const amenities = [
-  {
-    id: 1,
-    img: room,
-    title: "30 Rooms Hotel",
-    subtitle: "Spacious & Comfortable",
-  },
-  {
-    id: 2,
-    img: saputara3,
-    title: "2 Star Modern Amenities",
-    subtitle: "Best in Class",
-  },
-  {
-    id: 3,
-    img: sixbed,
-    title: "Types of Rooms",
-    subtitle: "Couple, 4 Bed & 6 Bed Suits",
-  },
-  {
-    id: 4,
-    img: market,
-    title: "Near Market & Points",
-    subtitle: "Easy Accessibility",
-  },
-  {
-    id: 5,
-    img: restaurant2,
-    title: "Pure Veg Restaurant",
-    subtitle: "Healthy & Delicious",
-  },
-  {
-    id: 6,
-    img: saputara10,
-    title: "Hot Running Water",
-    subtitle: "24/7 Availability",
-  },
-  {
-    id: 7,
-    img: cctv,
-    title: "Wi-Fi & CCTV",
-    subtitle: "Stay Connected & Secure",
-  },
-  {
-    id: 8,
-    img: parking,
-    title: "Ample Parking",
-    subtitle: "Safe & Convenient",
-  },
-  {
-    id: 9,
-    img: restaurant23,
-    title: "Fully Family Resort",
-    subtitle: "Relax Together",
-  },
-  {
-    id: 10,
-    img: saputara,
-    title: "Centrally Located",
-    subtitle: "Prime Location",
-  },
-  {
-    id: 11,
-    img: ev,
-    title: "EV Charging Station",
-    subtitle: "Hospitality Guaranteed",
-  },
-  {
-    id: 12,
-    img: saputara2,
-    title: "Reasonable Rates",
-    subtitle: "Budget Friendly",
-  },
-  {
-    id: 13,
-    img: online,
-    title: "Online/Phone Booking",
-    subtitle: "Easy Reservations",
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import axiosInstance from '../../services/api';
 
 const Amenities = () => {
   const navigate = useNavigate();
+  const [amenities, setAmenities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    fetchAmenities();
+  }, []);
+
+  const fetchAmenities = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await axiosInstance.get(`/facilities`);
+      
+      if (response.data.success) {
+        setAmenities(response.data.data);
+      } else {
+        setError('Failed to fetch amenities');
+      }
+    } catch (err) {
+      console.error('Error fetching amenities:', err);
+      setError('Failed to load amenities. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleAmenityClick = (id) => {
-    // Navigate to the AboutFacilitypage with the specific section ID
     navigate(`/about_facility#section-${id}`);
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 via-white to-gray-100 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-blue-900 tracking-tight">
+              Our Amenities
+            </h2>
+            <p className="text-gray-600 mt-3 text-lg">
+              Experience comfort, convenience, and world-class hospitality.
+            </p>
+            <div className="w-24 h-1 bg-orange-400 mx-auto mt-5 rounded"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {[...Array(8)].map((_, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden animate-pulse">
+                <div className="w-full h-48 bg-gray-300"></div>
+                <div className="p-6 space-y-3">
+                  <div className="h-6 bg-gray-300 rounded"></div>
+                  <div className="h-4 bg-gray-300 rounded"></div>
+                  <div className="h-4 bg-gray-300 rounded w-2/3"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 via-white to-gray-100 relative">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-blue-900 tracking-tight">
+              Our Amenities
+            </h2>
+            <p className="text-gray-600 mt-3 text-lg">
+              Experience comfort, convenience, and world-class hospitality.
+            </p>
+            <div className="w-24 h-1 bg-orange-400 mx-auto mt-5 rounded"></div>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <p className="text-red-500 text-lg mb-4">{error}</p>
+            <button
+              onClick={fetchAmenities}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Empty state
+  if (amenities.length === 0) {
+    return (
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 via-white to-gray-100 relative">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-blue-900 tracking-tight">
+              Our Amenities
+            </h2>
+            <p className="text-gray-600 mt-3 text-lg">
+              Experience comfort, convenience, and world-class hospitality.
+            </p>
+            <div className="w-24 h-1 bg-orange-400 mx-auto mt-5 rounded"></div>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <p className="text-gray-500 text-lg">No amenities available at the moment.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 px-6 bg-gradient-to-b from-gray-50 via-white to-gray-100 relative">
@@ -125,7 +141,7 @@ const Amenities = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {amenities.map((item, index) => (
             <motion.div
-              key={index}
+              key={item.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
@@ -139,9 +155,12 @@ const Amenities = () => {
                   onClick={() => handleAmenityClick(item.id)}
                 >
                   <img
-                    src={item.img}
-                    alt={item.title}
+                    src={item.image || '/placeholder-image.jpg'}
+                    alt={item.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      e.target.src = '/placeholder-image.jpg';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60 group-hover:opacity-80 transition duration-500"></div>
                 </div>
@@ -150,7 +169,7 @@ const Amenities = () => {
               {/* Content */}
               <div className="p-6 text-center">
                 <h3 className="text-xl font-bold text-blue-900 group-hover:text-blue-700 transition">
-                  {item.title}
+                  {item.name}
                 </h3>
                 <p className="text-sm text-gray-600 mt-2">{item.subtitle}</p>
 

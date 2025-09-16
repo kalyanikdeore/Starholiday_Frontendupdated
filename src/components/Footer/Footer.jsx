@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import {
   FaFacebookF,
   FaYoutube,
@@ -8,11 +8,38 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import axiosInstance from "../../services/api";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState(null);
+  const [contactInfo, setContactInfo] = useState({
+    whatsapp_number: "",
+    email: "",
+    address: "",
+    facebook_link: "",
+    youtube_link: "",
+    instagram_link: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await axiosInstance.get('/contact');
+        setContactInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching contact info:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
+
 
   const pageLinks = [
     { name: "About Us", path: "/about_hill" },
@@ -23,22 +50,22 @@ const Footer = () => {
   ];
 
   const socials = [
-    {
-      Icon: FaFacebookF,
-      color: "#3b5998",
-      url: "https://www.facebook.com/starholidayhomeandhillresort",
-    },
-    {
-      Icon: FaYoutube,
-      color: "#FF0000",
-      url: "https://www.youtube.com/results?search_query=star+holiday+home+saputara",
-    },
-    {
-      Icon: FaInstagram,
-      color: "#E1306C",
-      url: "https://www.instagram.com/starholidayhome/",
-    },
-  ];
+  {
+    Icon: FaFacebookF,
+    color: "#8b9ec6",
+    url: contactInfo.facebook_link,
+  },
+  {
+    Icon: FaYoutube,
+    color: "#8b9ec6",
+    url: contactInfo.youtube_link,
+  },
+  {
+    Icon: FaInstagram,
+    color: "#8b9ec6",
+    url: contactInfo.instagram_link,
+  },
+];
 
   // Set consistent icon size
   const iconSize = 16;
@@ -128,18 +155,21 @@ const Footer = () => {
                   className="mt-1 mr-3 text-[#ff9d00]"
                   size={iconSize}
                 />
-                <p>
-                  STAR HOLIDAY HOME HILL RESORT, Sr No. 121, Sunrise Point Road,
-                  Dang, Saputara, Gujarat 394720
-                </p>
+                {contactInfo.address && (
+                  <p className="whitespace-pre-line">{contactInfo.address}</p>
+                )}
               </div>
               <div className="flex items-center">
                 <FaPhone className="mr-3 text-[#ff9d00]" size={iconSize} />
-                <p>+91 9850981210</p>
+                {contactInfo.whatsapp_number && (
+                  <p>{contactInfo.whatsapp_number}</p>
+                )}
               </div>
               <div className="flex items-center">
                 <FaEnvelope className="mr-3 text-[#ff9d00]" size={iconSize} />
-                <p>starholidayhome@gmail.com</p>
+                {contactInfo.email && (
+                  <p>{contactInfo.email}</p>
+                )}
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import starlogo2 from "../../assets/Images/starlogo2.png";
 import logos from "../../assets/Images/logos.jpeg";
+import axiosInstance from "../../services/api";
 
 // ✅ Navigation Items
 const navItems = [
@@ -28,11 +29,38 @@ const navItems = [
 
 // ✅ Top Bar Component (hidden on mobile)
 const TopBar = ({ hideTopBar }) => {
+
+  const [contactInfo, setContactInfo] = useState({
+    whatsapp_number: "",
+    email: "",
+    address: "",
+    facebook_link: "",
+    youtube_link: "",
+    instagram_link: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await axiosInstance.get('/contact');
+        setContactInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching contact info:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
+
+
   return (
     <div
-      className={`hidden md:block text-sm transition-transform duration-500 ${
-        hideTopBar ? "-translate-y-full" : "translate-y-0"
-      } fixed top-0 left-0 w-full z-[1000] border-b border-gray-200 bg-blue-950`}
+      className={`hidden md:block text-sm transition-transform duration-500 ${hideTopBar ? "-translate-y-full" : "translate-y-0"
+        } fixed top-0 left-0 w-full z-[1000] border-b border-gray-200 bg-blue-950`}
     >
       <div className="max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row md:justify-between md:items-center py-2 text-white gap-2 md:gap-0">
         {/* Location + Weather */}
@@ -43,27 +71,38 @@ const TopBar = ({ hideTopBar }) => {
 
         {/* Contact + Social */}
         <div className="flex justify-center md:justify-end items-center space-x-4 text-xs md:text-sm">
-          <a href="tel:+919824644747" className="hover:text-orange-500">
-            📞 +91 98509 81210
-          </a>
-          <a
-            href="https://www.facebook.com/starholidayhomeandhillresort"
-            className="hover:text-orange-500"
-          >
-            <FaFacebookF />
-          </a>
-          <a
-            href="https://www.youtube.com/results?search_query=star+holiday+home+saputara"
-            className="hover:text-orange-500"
-          >
-            <FaYoutube />
-          </a>
-          <a
-            href="https://www.instagram.com/starholidayhome/"
-            className="hover:text-orange-500"
-          >
-            <BsInstagram />
-          </a>
+          {contactInfo.whatsapp_number && (
+            <a href={`tel:${contactInfo.whatsapp_number}`} className="hover:text-orange-500">
+              📞 {contactInfo.whatsapp_number}
+            </a>
+          )}
+
+          {contactInfo.facebook_link && (
+            <a
+              href={contactInfo.facebook_link}
+              className="hover:text-orange-500"
+            >
+              <FaFacebookF />
+            </a>
+          )}
+          {contactInfo.youtube_link && (
+            <a
+              href={contactInfo.youtube_link}
+              className="hover:text-orange-500"
+            >
+              <FaYoutube />
+            </a>
+          )}
+
+          {contactInfo.instagram_link && (
+            <a
+              href={contactInfo.instagram_link}
+              className="hover:text-orange-500"
+            >
+              <BsInstagram />
+            </a>
+          )}
+
         </div>
       </div>
     </div>
@@ -83,9 +122,8 @@ const MainNavbar = ({ hideTopBar }) => {
   return (
     <>
       <nav
-        className={`fixed w-full bg-white left-0 transition-all duration-300 z-[1401] ${
-          hideTopBar ? "shadow-md border-b border-gray-100" : ""
-        }`}
+        className={`fixed w-full bg-white left-0 transition-all duration-300 z-[1401] ${hideTopBar ? "shadow-md border-b border-gray-100" : ""
+          }`}
         // ✅ Top offset only for desktop, no gap in mobile
         style={{
           top: hideTopBar ? "0px" : window.innerWidth < 768 ? "0px" : "30px",
@@ -121,17 +159,15 @@ const MainNavbar = ({ hideTopBar }) => {
                   onClick={() =>
                     item.submenu ? toggleDropdown(index) : navigate(item.path)
                   }
-                  className={`hover:text-orange-500 flex items-center gap-1 transition-colors ${
-                    openDropdown === index ? "text-orange-500" : ""
-                  }`}
+                  className={`hover:text-orange-500 flex items-center gap-1 transition-colors ${openDropdown === index ? "text-orange-500" : ""
+                    }`}
                 >
                   {item.label}
                   {item.submenu && (
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${
-                        openDropdown === index ? "rotate-180" : ""
-                      }`}
+                      className={`transition-transform ${openDropdown === index ? "rotate-180" : ""
+                        }`}
                     />
                   )}
                 </button>

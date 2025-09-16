@@ -2,7 +2,7 @@ import React from "react";
 import SaputarapageHero from "./SaputarapageHero";
 import Saputaravideo from "./Saputaravideo";
 import AboutSaputara from "./AboutSaputara";
-import SaputaraSightseeing from "./SapuatraSightseeing";
+import SaputaraSightseeing from "./SaputaraSightseeing";
 import SaputaraImage from "./SaputaraImage";
 function Saputarapage() {
   return (

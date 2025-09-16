@@ -14,7 +14,7 @@ function Layout() {
 
   return (
     <>
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <Navbar />
 
       <Outlet />

@@ -1,8 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
+// Fallback image in case the API image fails to load
 import saputara from "../../assets/Images/saputara.jpg";
+import axiosInstance from "../../services/api";
 
 const ShilpiResort = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        setLoading(true);
+        // Fetch data from the API endpoint
+        const response = await axiosInstance.get('/about-saputara/about');
+        
+        if (response.data.success) {
+          setAboutData(response.data.data);
+        } else {
+          setError(response.data.message || 'Failed to load data');
+        }
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching about data:', err);
+        setError('Failed to load About Saputara data');
+        setLoading(false);
+      }
+    };
+
+    fetchAboutData();
+  }, []);
+
+  // Handle image loading errors
+  const handleImageError = (e) => {
+    console.error('Image failed to load, using fallback');
+    e.target.src = saputara;
+  };
+
+  if (loading) {
+    return (
+      <section className="bg-gradient-to-b from-blue-50 to-white py-16 px-6 md:px-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-gradient-to-b from-blue-50 to-white py-16 px-6 md:px-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-center items-center h-64">
+            <p className="text-red-500 text-lg">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="bg-gradient-to-b from-blue-50 to-white py-16 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
@@ -20,21 +79,30 @@ const ShilpiResort = () => {
             </div>
 
             <div className="space-y-4 text-gray-700">
-              <p className="text-lg leading-relaxed">
-                Saputara is Gujarat's sole hill station, situated in the
-                Sahyadri range (Western Ghats) at a height of about 1,000
-                meters, renowned for its picturesque landscapes and pleasant
-                climate, particularly from October to February. Key attractions
-                include Saputara Lake for boating, the Artist Village showcasing
-                tribal arts, the Governor's Hill Trail for panoramic views, and
-                various gardens like the Step Garden and Lake Garden.
-              </p>
-              <p className="text-lg leading-relaxed">
-                Saputara Lake: The centerpiece of the town, perfect for boating
-                Saputara Waterfall: Experience the beauty of gushing waterfalls,
-                especially during the monsoon season. and a peaceful stroll
-                around its landscaped gardens.
-              </p>
+              {aboutData && aboutData.content ? (
+                <div 
+                  className="text-lg leading-relaxed prose max-w-none"
+                  dangerouslySetInnerHTML={{ __html: aboutData.content }}
+                />
+              ) : (
+                <>
+                  <p className="text-lg leading-relaxed">
+                    Saputara is Gujarat's sole hill station, situated in the
+                    Sahyadri range (Western Ghats) at a height of about 1,000
+                    meters, renowned for its picturesque landscapes and pleasant
+                    climate, particularly from October to February. Key attractions
+                    include Saputara Lake for boating, the Artist Village showcasing
+                    tribal arts, the Governor's Hill Trail for panoramic views, and
+                    various gardens like the Step Garden and Lake Garden.
+                  </p>
+                  <p className="text-lg leading-relaxed">
+                    Saputara Lake: The centerpiece of the town, perfect for boating
+                    Saputara Waterfall: Experience the beauty of gushing waterfalls,
+                    especially during the monsoon season. and a peaceful stroll
+                    around its landscaped gardens.
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
@@ -42,9 +110,10 @@ const ShilpiResort = () => {
           <div className="lg:w-1/2 order-1 lg:order-2 relative group">
             <div className="relative overflow-hidden rounded-xl shadow-2xl">
               <img
-                src={saputara}
-                alt="Star Holiday Resort"
+                src={aboutData?.image || saputara}
+                alt="Saputara Hill Station"
                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                onError={handleImageError}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
             </div>

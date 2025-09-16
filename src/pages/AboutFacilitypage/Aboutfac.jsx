@@ -1,6 +1,25 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../services/api";
 
 const Aboutfac = () => {
+  const [about, setAbout] = useState(null);
+
+  const fetchAbout = async () => {
+  try {
+    const response = await axiosInstance.get(`/about-facilities-content`);
+    if (response.data.success) {
+      setAbout(response.data.data); // since we made controller return only text
+    }
+  } catch (err) {
+    console.error('Error fetching about content:', err);
+  }
+};
+
+useEffect(() => {
+  fetchAbout();
+}, []);
+
   return (
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg ">
       {/* Header */}
@@ -16,38 +35,9 @@ const Aboutfac = () => {
       {/* Main Content */}
       <div className="mb-8">
         <div className="text-lg text-center text-gray-700 mb-4">
-          <p>
-            At <strong>Star Holiday Home, Saputara</strong>, we take pride in
-            offering our guests a warm and inviting atmosphere. From comfortable
-            couches and elegant lounge spaces to relaxing corners, we create the
-            perfect setting to unwind, connect, and cherish memorable moments.
-            Our hotel provides a complete range of services to ensure your stay
-            is simple, comfortable, and truly enjoyable. Whether it’s a board
-            meeting, training program, team-building activity, or seminar, we
-            are well equipped to cater to all your requirements in Saputara.
-          </p>
-          <p>
-            Our spacious lounge features distinctive interiors inspired by
-            Indian ethos, creating a unique sense of place from the moment you
-            arrive. Natural light enhances the design and ambience, making the
-            environment refreshing and welcoming.
-          </p>
-          <p>
-            Blending creativity with nature, our interiors include beautiful art
-            pieces crafted from bamboo roots—complex yet elegant, adding a touch
-            of natural artistry. Guests can also enjoy free Wi-Fi access in the
-            lounge, making it an ideal space for both relaxation and
-            productivity. With a wide variety of amenities, Star Holiday Home is
-            the perfect destination for recreation and leisure throughout the
-            year.
-          </p>
-          <p>
-            As our valued guest, you will experience both comfort and luxury. A
-            single call connects you with all your needs—whether it’s reserving
-            a dinner table, booking a spa appointment, requesting room service,
-            arranging a wake-up call, or asking for added amenities. At Star
-            Holiday Home, we make sure your stay is effortless and memorable.
-          </p>
+          {about && (
+          <p dangerouslySetInnerHTML={{ __html: about.about_facility_content}}/>
+          )}
         </div>
       </div>
 

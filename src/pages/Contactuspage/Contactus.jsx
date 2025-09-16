@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MessageSquare, Clock } from "lucide-react";
 import {
@@ -12,31 +12,27 @@ import {
   FaYoutube,
   FaInstagram,
 } from "react-icons/fa";
+import axiosInstance from "../../services/api";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-const socials = [
-  {
-    Icon: FaFacebookF,
-    color: "#8b9ec6",
-    url: "https://www.facebook.com/starholidayhomeandhillresort",
-  },
-  {
-    Icon: FaYoutube,
-    color: "#8b9ec6",
-    url: "https://www.youtube.com/results?search_query=star+holiday+home+saputara",
-  },
-  {
-    Icon: FaInstagram,
-    color: "#8b9ec6",
-    url: "https://www.instagram.com/starholidayhome/",
-  },
-];
+
 
 const ContactUsPage = () => {
+
+  const [contactInfo, setContactInfo] = useState({
+    booking_contact_number: "",
+    whatsapp_number: "",
+    reception_contact_number: "",
+    email: "",
+    facebook_link: "",
+    youtube_link: "",
+    instagram_link: "",
+    open_hours: "",
+  });
   // Contact form state
   const [contactFormData, setContactFormData] = useState({
     name: "",
@@ -69,6 +65,24 @@ const ContactUsPage = () => {
     "4 Bedded super deluxe AC family rooms",
     "6 Bedded super deluxe AC family Suite",
   ];
+
+  const socials = [
+  {
+    Icon: FaFacebookF,
+    color: "#8b9ec6",
+    url: contactInfo.facebook_link,
+  },
+  {
+    Icon: FaYoutube,
+    color: "#8b9ec6",
+    url: contactInfo.youtube_link,
+  },
+  {
+    Icon: FaInstagram,
+    color: "#8b9ec6",
+    url: contactInfo.instagram_link,
+  },
+];
 
   const handleContactChange = (e) => {
     const { id, value } = e.target;
@@ -114,6 +128,54 @@ Room Type: ${bookingFormData.roomType}%0A
 Selected Day: ${bookingFormData.selectedDay}`;
     window.open(`https://wa.me/9850981210?text=${message}`, "_blank");
   };
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitError, setSubmitError] = useState("");
+
+  // Fetch contact information
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const response = await axiosInstance.get('/contact');
+        setContactInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching contact info:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-yellow-50 py-12 px-6">
+        <h1 className="text-4xl font-bold text-blue-800 text-center mb-8">
+          Contact Us
+        </h1>
+        <div className="flex justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-yellow-50 py-12 px-6">
+        <h1 className="text-4xl font-bold text-blue-800 text-center mb-8">
+          Contact Us
+        </h1>
+        <div className="text-center text-red-500">
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <motion.div
@@ -261,7 +323,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                   <h3 className="font-semibold text-lg text-gray-800">
                     Booking Contact Number
                   </h3>
-                  <p className="text-gray-600 mt-1">9850981210</p>
+                  {contactInfo.booking_contact_number && (
+                    <p className="text-gray-600 mt-1">{contactInfo.booking_contact_number}</p>
+                  )}
                 </div>
               </div>
               <div className="flex items-start gap-5">
@@ -272,7 +336,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                   <h3 className="font-semibold text-lg text-gray-800">
                     Whatsapp Contact Number
                   </h3>
-                  <p className="text-gray-600 mt-1">9850981210</p>
+                  {contactInfo.whatsapp_number && (
+                    <p className="text-gray-600 mt-1">{contactInfo.whatsapp_number}</p>
+                  )}
                 </div>
               </div>
               <div className="flex items-start gap-5">
@@ -283,7 +349,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                   <h3 className="font-semibold text-lg text-gray-800">
                     Reception Contact
                   </h3>
-                  <p className="text-gray-600 mt-1">+91 98509 81400</p>
+                  {contactInfo.reception_contact_number && (
+                    <p className="text-gray-600 mt-1">{contactInfo.reception_contact_number}</p>
+                  )}
                 </div>
               </div>
 
@@ -293,9 +361,11 @@ Selected Day: ${bookingFormData.selectedDay}`;
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Email</h3>
-                  <p className="text-gray-600 mt-1">
-                    starholidayhome@gmail.com
-                  </p>
+                  {contactInfo.email && (
+                    <p className="text-gray-600 mt-1">
+                      {contactInfo.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -307,10 +377,11 @@ Selected Day: ${bookingFormData.selectedDay}`;
                   <h3 className="font-semibold text-lg text-gray-800">
                     Booking Hours
                   </h3>
-                  <p className="text-gray-600 mt-1">
-                    Monday - Friday: 9AM to 6PM
-                  </p>
-                  <p className="text-gray-600">Saturday: 9AM to 1PM</p>
+                  {contactInfo.open_hours && (
+                    <p className="text-gray-600 mt-1 whitespace-pre-line">
+                      {contactInfo.open_hours}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -321,18 +392,20 @@ Selected Day: ${bookingFormData.selectedDay}`;
                 Follow Us
               </h3>
               <div className="flex gap-5">
-                {socials.map(({ Icon, color, url }, index) => (
-                  <a
-                    key={index}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 flex items-center justify-center rounded-full shadow-md transition-transform transform hover:scale-110"
-                    style={{ backgroundColor: color }}
-                  >
-                    <Icon className="text-white text-xl" />
-                  </a>
-                ))}
+                {socials
+                  .filter(({ url }) => url && url.trim() !== "")
+                  .map(({ Icon, color, url }, index) => (
+                    <a
+                      key={index}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 flex items-center justify-center rounded-full shadow-md transition-transform transform hover:scale-110"
+                      style={{ backgroundColor: color }}
+                    >
+                      <Icon className="text-white text-xl" />
+                    </a>
+                  ))}
               </div>
             </div>
           </div>

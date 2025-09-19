@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../services/api";
 
 const AboutUsSection = () => {
   const navigate = useNavigate();
@@ -9,12 +10,11 @@ const AboutUsSection = () => {
   useEffect(() => {
     fetchAboutData();
   }, []);
-  
+
   const fetchAboutData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/about-us");
-      const data = await response.json();
-      setAboutData(data);
+      const response = await axiosInstance.get("/about-us");
+      setAboutData(response.data);
     } catch (error) {
       console.error("Error fetching about data:", error);
     } finally {
@@ -35,8 +35,8 @@ const AboutUsSection = () => {
       return imagePath;
     }
 
-    // For local storage paths, prepend the storage URL
-    return `http://localhost:8000/storage/${imagePath}`;
+    // For uploads directory paths
+    return `${axiosInstance.defaults.fileURL}/${imagePath}`;
   };
 
   if (loading) {

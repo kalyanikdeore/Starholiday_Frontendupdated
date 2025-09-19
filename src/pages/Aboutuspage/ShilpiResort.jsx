@@ -1,4 +1,6 @@
+// src/components/StarResortvideo.js
 import React, { useState, useEffect } from "react";
+import axiosInstance from "../../services/api";
 
 const StarResortvideo = () => {
   const [resortVideoData, setResortVideoData] = useState(null);
@@ -8,30 +10,17 @@ const StarResortvideo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/resort-video");
-
-        // Check content type first
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          const text = await response.text();
-          console.error("Non-JSON response:", text.substring(0, 200));
-          throw new Error("Server returned non-JSON response");
-        }
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log("API Response:", result);
+        const response = await axiosInstance.get("/resort-video");
 
         // Check if the response has success property
-        if (result.success === false) {
-          throw new Error(result.message || "No resort video data available");
+        if (response.data.success === false) {
+          throw new Error(
+            response.data.message || "No resort video data available"
+          );
         }
 
         // Handle both data structures: direct data or {data: {...}}
-        const videoData = result.data || result;
+        const videoData = response.data.data || response.data;
 
         if (!videoData) {
           throw new Error("No resort video data available");

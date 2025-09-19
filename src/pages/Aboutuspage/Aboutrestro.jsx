@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../services/api";
 
 const AboutResort = () => {
   const [aboutData, setAboutData] = useState(null);
@@ -9,9 +9,7 @@ const AboutResort = () => {
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/about-resort"
-        );
+        const response = await axiosInstance.get("/about-resort");
         setAboutData(response.data);
         setLoading(false);
       } catch (err) {
@@ -28,8 +26,8 @@ const AboutResort = () => {
     if (!path) return "";
     // If it's already a full URL, return it
     if (path.startsWith("http")) return path;
-    // Otherwise, construct the URL from the storage path
-    return `http://localhost:8000/storage/${path}`;
+    // Otherwise, construct the URL from the uploads path
+    return `/uploads/${path}`;
   };
 
   if (loading) return <div className="text-center p-6">Loading...</div>;
@@ -44,7 +42,9 @@ const AboutResort = () => {
         <h1 className="text-4xl font-bold text-gray-800 mb-2">
           {aboutData.title}
         </h1>
-        <h5 className="font-bold text-1xl text-blue-600">{aboutData.title}</h5>
+        <h5 className="font-bold text-1xl text-blue-600">
+          {aboutData.subtitle}
+        </h5>
       </div>
 
       {/* Main Content */}
@@ -55,11 +55,11 @@ const AboutResort = () => {
       </div>
 
       {/* Image Section */}
-      <div className="relative w-full max-w-6xl  mx-auto mb-8">
+      <div className="relative w-full max-w-6xl mx-auto mb-8">
         <img
           src={getImageUrl(aboutData.image_path)}
           alt="Star Holiday Resort"
-          className="w-full h-109 rounded-lg shadow-lg object-cover"
+          className="w-full h-96 rounded-lg shadow-lg object-cover"
         />
       </div>
 

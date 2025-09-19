@@ -1,37 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-// Import images
-import cou2 from "../../assets/Images/cou2.jpg";
-import bed4 from "../../assets/Images/4bed.jpg";
-import bedimge from "../../assets/Images/6bedimge.jpeg";
-import sixbed from "../../assets/Images/sixbed.jpeg";
-
-const ourluxuryrooms = [
-  {
-    id: "couple_room",
-    title: "2 Bedded super deluxe AC couple rooms",
-    image: cou2,
-    path: "/Coupleroom",
-  },
-  {
-    id: "4_bedrooms_family_room",
-    title: "4 Bedded super deluxe AC family rooms",
-    image: bed4,
-    path: "/family_room",
-  },
-  {
-    id: "6_bedrooms_family_room",
-    title: "6 Bedded super deluxe AC family Suite",
-    image: sixbed,
-    path: "/6_bedrooms",
-  },
-];
+import axiosInstance from "../../services/api";
 
 const LuxuryRooms = () => {
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  const fetchRooms = async () => {
+    try {
+      const response = await axiosInstance.get("/Luxury-room");
+      setRooms(response.data.data || response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching rooms:", error);
+      setLoading(false);
+    }
+  };
 
   const handleRoomClick = (path) => {
     navigate(path);
@@ -40,6 +31,16 @@ const LuxuryRooms = () => {
   const handleBookNow = () => {
     navigate("/bookform");
   };
+
+  if (loading) {
+    return (
+      <section className="relative bg-gradient-to-b from-blue-50 to-white py-16 px-6 md:px-16">
+        <div className="text-center">
+          <p>Loading rooms...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative bg-gradient-to-b from-blue-50 to-white py-16 px-6 md:px-16">
@@ -68,9 +69,9 @@ const LuxuryRooms = () => {
         </p>
       </div>
 
-      {/* ourluxuryrooms cards */}
+      {/* Rooms cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {ourluxuryrooms.map((room, index) => (
+        {rooms.map((room, index) => (
           <motion.div
             key={room.id}
             initial={{ opacity: 0, y: 40 }}
@@ -90,7 +91,7 @@ const LuxuryRooms = () => {
             {/* Image with overlay */}
             <div className="relative">
               <motion.img
-                src={room.image}
+                src={`${axiosInstance.defaults.fileURL}/${room.image}`}
                 alt={room.title}
                 className="w-full h-72 object-cover rounded-t-2xl"
                 whileHover={{ scale: 1.1 }}

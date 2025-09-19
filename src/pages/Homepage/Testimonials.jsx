@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import axiosInstance from "../../services/api";
 
 // Animation variants
 const containerVariants = {
@@ -29,15 +30,14 @@ const TestimonialSection = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { 
+  useEffect(() => {
     fetchTestimonials();
   }, []);
 
   const fetchTestimonials = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/testimonials");
-      const data = await response.json();
-      setTestimonials(data);
+      const response = await axiosInstance.get("/testimonials");
+      setTestimonials(response.data);
     } catch (error) {
       console.error("Error fetching testimonials:", error);
     } finally {

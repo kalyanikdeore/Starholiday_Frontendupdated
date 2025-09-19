@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axiosInstance from "../../services/api";
 
 const Resortimage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,19 +17,15 @@ const Resortimage = () => {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          "http://localhost:8000/api/restaurant-section"
-        );
+        const response = await axiosInstance.get("/restaurant-section");
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data && data.images && data.images.length > 0) {
-          setSectionData(data);
-          setImages(data.images);
+        if (
+          response.data &&
+          response.data.images &&
+          response.data.images.length > 0
+        ) {
+          setSectionData(response.data);
+          setImages(response.data.images);
         } else {
           setSectionData(null);
           setImages([]);
@@ -214,6 +211,7 @@ const Resortimage = () => {
             <>
               <motion.button
                 className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 rounded-full p-2 md:p-3 z-10 shadow-lg hover:bg-amber-500 hover:text-white transition-colors duration-300"
+                style={{ zIndex: 1 }}
                 onClick={prevSlide}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -237,6 +235,7 @@ const Resortimage = () => {
 
               <motion.button
                 className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 rounded-full p-2 md:p-3 z-10 shadow-lg hover:bg-amber-500 hover:text-white transition-colors duration-300"
+                style={{ zIndex: 1 }}
                 onClick={nextSlide}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -262,7 +261,10 @@ const Resortimage = () => {
 
           {/* Dots Indicator - Only show if multiple images */}
           {images.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+            <div
+              className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 "
+              style={{ zIndex: 1 }}
+            >
               {images.map((_, index) => (
                 <button
                   key={index}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../services/api";
 
 const AboutSection = () => {
   const [sections, setSections] = useState([]);
@@ -9,9 +9,7 @@ const AboutSection = () => {
   useEffect(() => {
     const fetchAboutSections = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/about-sections"
-        );
+        const response = await axiosInstance.get("/about-sections");
         if (response.data.success) {
           setSections(response.data.data);
         } else {

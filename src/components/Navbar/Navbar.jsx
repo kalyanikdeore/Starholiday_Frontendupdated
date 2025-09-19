@@ -17,7 +17,7 @@ const navItems = [
     submenu: [
       { label: "2 Bedded super deluxe AC couple rooms", path: "/Coupleroom" },
       { label: "4 Bedded super deluxe AC family rooms", path: "/family_room" },
-      { label: "6 Bedded super deluxe AC family Suite", path: "/rooms" },
+      { label: "6 Bedded super deluxe AC family Suite", path: "/6_bedrooms" },
     ],
   },
   { label: "FACILITIES", path: "/about_facility" },
@@ -29,7 +29,6 @@ const navItems = [
 
 // ✅ Top Bar Component (hidden on mobile)
 const TopBar = ({ hideTopBar }) => {
-
   const [contactInfo, setContactInfo] = useState({
     whatsapp_number: "",
     email: "",
@@ -44,7 +43,7 @@ const TopBar = ({ hideTopBar }) => {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const response = await axiosInstance.get('/contact');
+        const response = await axiosInstance.get("/contact");
         setContactInfo(response.data);
       } catch (error) {
         console.error("Error fetching contact info:", error);
@@ -56,11 +55,11 @@ const TopBar = ({ hideTopBar }) => {
     fetchContactInfo();
   }, []);
 
-
   return (
     <div
-      className={`hidden md:block text-sm transition-transform duration-500 ${hideTopBar ? "-translate-y-full" : "translate-y-0"
-        } fixed top-0 left-0 w-full z-[1000] border-b border-gray-200 bg-blue-950`}
+      className={`hidden md:block text-sm transition-transform duration-500 ${
+        hideTopBar ? "-translate-y-full" : "translate-y-0"
+      } fixed top-0 left-0 w-full z-[1000] border-b border-gray-200 bg-blue-950`}
     >
       <div className="max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row md:justify-between md:items-center py-2 text-white gap-2 md:gap-0">
         {/* Location + Weather */}
@@ -72,7 +71,10 @@ const TopBar = ({ hideTopBar }) => {
         {/* Contact + Social */}
         <div className="flex justify-center md:justify-end items-center space-x-4 text-xs md:text-sm">
           {contactInfo.whatsapp_number && (
-            <a href={`tel:${contactInfo.whatsapp_number}`} className="hover:text-orange-500">
+            <a
+              href={`tel:${contactInfo.whatsapp_number}`}
+              className="hover:text-orange-500"
+            >
               📞 {contactInfo.whatsapp_number}
             </a>
           )}
@@ -102,7 +104,6 @@ const TopBar = ({ hideTopBar }) => {
               <BsInstagram />
             </a>
           )}
-
         </div>
       </div>
     </div>
@@ -122,8 +123,9 @@ const MainNavbar = ({ hideTopBar }) => {
   return (
     <>
       <nav
-        className={`fixed w-full bg-white left-0 transition-all duration-300 z-[1401] ${hideTopBar ? "shadow-md border-b border-gray-100" : ""
-          }`}
+        className={`fixed w-full bg-white left-0 transition-all duration-300 z-[1401] ${
+          hideTopBar ? "shadow-md border-b border-gray-100" : ""
+        }`}
         // ✅ Top offset only for desktop, no gap in mobile
         style={{
           top: hideTopBar ? "0px" : window.innerWidth < 768 ? "0px" : "30px",
@@ -159,15 +161,17 @@ const MainNavbar = ({ hideTopBar }) => {
                   onClick={() =>
                     item.submenu ? toggleDropdown(index) : navigate(item.path)
                   }
-                  className={`hover:text-orange-500 flex items-center gap-1 transition-colors ${openDropdown === index ? "text-orange-500" : ""
-                    }`}
+                  className={`hover:text-orange-500 flex items-center gap-1 transition-colors ${
+                    openDropdown === index ? "text-orange-500" : ""
+                  }`}
                 >
                   {item.label}
                   {item.submenu && (
                     <ChevronDown
                       size={16}
-                      className={`transition-transform ${openDropdown === index ? "rotate-180" : ""
-                        }`}
+                      className={`transition-transform ${
+                        openDropdown === index ? "rotate-180" : ""
+                      }`}
                     />
                   )}
                 </button>

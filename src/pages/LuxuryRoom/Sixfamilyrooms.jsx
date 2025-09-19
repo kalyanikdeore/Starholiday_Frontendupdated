@@ -1,21 +1,29 @@
-import React, { useState } from "react";
-import bed6 from "../../assets/Images/6bed.jpg";
-import bed61 from "../../assets/Images/6bed1.jpg";
-import bed62 from "../../assets/Images/6bed2.jpg";
-import bedimge from "../../assets/Images/6bedimge.jpeg";
-import sixbed from "../../assets/Images/sixbed.jpeg";
-import six2 from "../../assets/Images/six2.jpg";
-const ImageGallery = () => {
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../services/api";
+
+const SixRoomImages = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const images = [
-    { id: 1, src: sixbed, alt: "Course image 1" },
-    { id: 2, src: bed61, alt: "Course image 2" },
-    { id: 3, src: bed62, alt: "Course image 3" },
-    { id: 4, src: bedimge, alt: "Course image 4" },
-    { id: 5, src: six2, alt: "Course image 4" },
-  ];
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance.get("/six-room-images");
+      setImages(response.data.data);
+    } catch (err) {
+      setError("Failed to load images");
+      console.error("Error fetching images:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -26,6 +34,14 @@ const ImageGallery = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
   };
+
+  if (loading) {
+    return <div className="text-center py-12">Loading images...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-12 text-red-500">{error}</div>;
+  }
 
   return (
     <div className="container-fluid mx-auto px-4 py-8 bg-gray-50 min-h-screen">
@@ -39,7 +55,7 @@ const ImageGallery = () => {
         <div className="w-24 h-1 bg-blue-500 mx-auto mt-6 rounded-full"></div>
       </div>
 
-      {/* Image Grid - Updated for wider desktop view */}
+      {/* Image Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-9xl mx-auto">
         {images.map((image) => (
           <div
@@ -82,4 +98,4 @@ const ImageGallery = () => {
   );
 };
 
-export default ImageGallery;
+export default SixRoomImages;

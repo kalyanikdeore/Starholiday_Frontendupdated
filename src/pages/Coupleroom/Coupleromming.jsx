@@ -1,22 +1,32 @@
-import React, { useState } from "react";
-import cou1 from "../../assets/Images/cou1.jpg";
-import cou2 from "../../assets/Images/cou2.jpg";
-import cou3 from "../../assets/Images/cou-3.jpg";
-import cou4 from "../../assets/Images/cou-4.jpg";
-import cou5 from "../../assets/Images/cou5.jpg";
-import cou6 from "../../assets/Images/cou6.jpeg";
-const ImageGallery = () => {
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../services/api";
+
+const CoupleRoomImagesGallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const images = [
-    { id: 1, src: cou1, alt: "Course image 1" },
-    { id: 2, src: cou2, alt: "Course image 2" },
-    { id: 3, src: cou3, alt: "Course image 3" },
-    { id: 4, src: cou4, alt: "Course image 4" },
-    { id: 5, src: cou5, alt: "Course image 5" },
-    { id: 6, src: cou6, alt: "Course image 6" },
-  ];
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance.get("/couple-room-images");
+      if (response.data.success) {
+        setImages(response.data.data);
+      } else {
+        setError("Failed to fetch images");
+      }
+    } catch (err) {
+      setError("Error fetching images: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -27,6 +37,33 @@ const ImageGallery = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
   };
+
+  if (loading) {
+    return (
+      <div className="container-fluid mx-auto px-4 py-8 bg-gray-50 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading images...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container-fluid mx-auto px-4 py-8 bg-gray-50 min-h-screen flex items-center justify-center">
+        <div className="text-center text-red-500">
+          <p>{error}</p>
+          <button
+            onClick={fetchImages}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container-fluid mx-auto px-4 py-8 bg-gray-50 min-h-screen">
@@ -40,23 +77,37 @@ const ImageGallery = () => {
         <div className="w-24 h-1 bg-blue-500 mx-auto mt-6 rounded-full"></div>
       </div>
 
-      {/* Image Grid - Updated for wider desktop view */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-9xl mx-auto">
-        {images.map((image) => (
-          <div
-            key={image.id}
-            className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl cursor-pointer"
-            onClick={() => handleImageClick(image)}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-          </div>
-        ))}
-      </div>
+      {/* Image Grid */}
+      {images.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-gray-500">No images available at the moment.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-9xl mx-auto">
+          {images.map((image) => (
+            <div
+              key={image.id}
+              className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl cursor-pointer"
+              onClick={() => handleImageClick(image)}
+            >
+              <img
+                src={`${axiosInstance.defaults.fileURL}/${image.image_path}`}
+                alt={image.title}
+                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* <h3 className="text-white font-semibold">{image.title}</h3> */}
+                {image.description && (
+                  <p className="text-gray-200 text-sm mt-1 truncate">
+                    {/* {image.description} */}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Modal */}
       {isModalOpen && selectedImage && (
@@ -72,10 +123,16 @@ const ImageGallery = () => {
               &times;
             </button>
             <img
-              src={selectedImage.src}
-              alt={selectedImage.alt}
+              src={`${axiosInstance.defaults.fileURL}/${selectedImage.image_path}`}
+              alt={selectedImage.title}
               className="w-full h-auto max-h-[80vh] object-contain rounded"
             />
+            <div className="mt-4 text-center text-white">
+              {/* <h3 className="text-xl font-semibold">{selectedImage.title}</h3> */}
+              {/* {selectedImage.description && (
+                <p className="mt-2">{selectedImage.description}</p>
+              )} */}
+            </div>
           </div>
         </div>
       )}
@@ -83,4 +140,4 @@ const ImageGallery = () => {
   );
 };
 
-export default ImageGallery;
+export default CoupleRoomImagesGallery;

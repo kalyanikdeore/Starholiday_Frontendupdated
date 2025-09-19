@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import axiosInstance from "../../services/api";
 
 const StayWithUs = () => {
   const scrollRef = useRef(null);
@@ -11,9 +12,8 @@ const StayWithUs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/stay-reasons");
-        const data = await response.json();
-        setImages(data);
+        const response = await axiosInstance.get("/stay-reasons");
+        setImages(response.data);
       } catch (error) {
         console.error("Error fetching stay reasons:", error);
       } finally {
@@ -43,7 +43,7 @@ const StayWithUs = () => {
   }
 
   return (
-    <div className="py-10 px-4 bg-white text-gray-800 relative">
+    <div className="py-5 px-4 bg-white text-gray-800 relative">
       <div className="max-w-screen-xl mx-auto">
         {/* Heading Section */}
         <div className="text-left mb-8">
@@ -61,8 +61,9 @@ const StayWithUs = () => {
           {images.length > 0 && (
             <button
               onClick={() => scroll("left")}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white shadow-lg p-2 rounded-full z-10 hover:bg-blue-600 hover:text-white transition"
+              className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white shadow-lg  p-2 rounded-full  hover:bg-blue-600 hover:text-white transition"
               aria-label="Scroll left"
+              style={{ zIndex: 1 }}
             >
               <ChevronLeft size={28} />
             </button>
@@ -100,9 +101,6 @@ const StayWithUs = () => {
                     <h3 className="text-white text-xl font-bold mb-1">
                       {item.title}
                     </h3>
-                    {/* <p className="text-white text-sm hidden group-hover:block">
-                      {item.description}
-                    </p> */}
                   </div>
                 </motion.div>
               ))

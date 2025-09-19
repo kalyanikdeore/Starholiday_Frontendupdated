@@ -1,18 +1,57 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import CountUp from "react-countup";
 import { motion, useInView } from "framer-motion";
-
-const stats = [
-  { number: 25000, label: "Guest Stays", suffix: "+" },
-  { number: 15000, label: "Rooms Booked", suffix: "+" },
-  { number: 2000, label: "Member Cooperate", suffix: "+" },
-  { number: 25000, label: "Meals Served", suffix: "+" },
-  { number: 4.9, label: "Guest Rating", suffix: "/5", decimals: 1 },
-];
+import axiosInstance from "../../services/api";
+// Import axios to use its isCancel method directly
+import axios from "axios";
 
 const Impact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { triggerOnce: true, threshold: 0.1 });
+  const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        const response = await axiosInstance.get("/impact-stats", {
+          signal,
+        });
+
+        const data = response.data;
+
+        if (Array.isArray(data)) {
+          setStats(data);
+        } else if (data && data.data && Array.isArray(data.data)) {
+          setStats(data.data);
+        } else {
+          throw new Error("Invalid data format received from API");
+        }
+
+        setError(null);
+      } catch (error) {
+        // Use axios.isCancel instead of axiosInstance.isCancel
+        if (!axios.isCancel(error)) {
+          console.error("Error fetching impact stats:", error);
+          setError(error.message);
+          setStats([]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   // Container variants for staggered animations
   const containerVariants = {
@@ -43,7 +82,7 @@ const Impact = () => {
     <section
       ref={ref}
       className="py-20 bg-gradient-to-br from-[#2c5554] to-[#436f6e] text-[#e0dbdb] relative overflow-hidden"
-      style={{ zIndex: 1 }} // Added base z-index for the section
+      style={{ zIndex: 1 }}
     >
       {/* Subtle background pattern with proper z-index */}
       <div className="absolute inset-0 opacity-10" style={{ zIndex: 2 }}>
@@ -85,42 +124,73 @@ const Impact = () => {
           </motion.p>
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8"
-          style={{ position: "relative", zIndex: 4 }}
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center 
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
+            {/* Show loading placeholders */}
+            {[...Array(5)].map((_, index) => (
+              <div
+                key={index}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center 
+                         border border-white/20 flex flex-col justify-center items-center"
+                style={{ zIndex: 5, height: "150px" }}
+              >
+                <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
+                  --
+                </div>
+                <div className="text-sm md:text-base font-medium text-[#d3a070] uppercase tracking-wider">
+                  Loading...
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-10">
+            <p className="text-lg opacity-80 text-red-200">
+              Error loading impact data: {error}
+            </p>
+          </div>
+        ) : stats.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8"
+            style={{ position: "relative", zIndex: 4 }}
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center 
                          border border-white/20 hover:bg-white/15 transition-all 
                          duration-300 ease-in-out transform hover:-translate-y-1 
                          shadow-lg hover:shadow-xl flex flex-col justify-center items-center"
-              style={{ zIndex: 5 }}
-            >
-              <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
-                {isInView && (
-                  <CountUp
-                    end={stat.number}
-                    duration={2.5}
-                    decimals={stat.decimals || 0}
-                    suffix={stat.suffix || ""}
-                    delay={index * 0.2}
-                  />
-                )}
-              </div>
-              <div className="text-sm md:text-base font-medium text-[#d3a070] uppercase tracking-wider">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Additional decorative elements */}
+                style={{ zIndex: 5 }}
+              >
+                <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
+                  {isInView && (
+                    <CountUp
+                      end={stat.number}
+                      duration={2.5}
+                      decimals={stat.decimals || 0}
+                      suffix={stat.suffix || ""}
+                      delay={index * 0.2}
+                    />
+                  )}
+                </div>
+                <div className="text-sm md:text-base font-medium text-[#d3a070] uppercase tracking-wider">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-10">
+            <p className="text-lg opacity-80">
+              No impact data available at this time.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

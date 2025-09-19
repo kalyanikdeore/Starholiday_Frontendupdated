@@ -19,10 +19,7 @@ const fadeIn = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-
-
 const ContactUsPage = () => {
-
   const [contactInfo, setContactInfo] = useState({
     booking_contact_number: "",
     whatsapp_number: "",
@@ -67,22 +64,22 @@ const ContactUsPage = () => {
   ];
 
   const socials = [
-  {
-    Icon: FaFacebookF,
-    color: "#8b9ec6",
-    url: contactInfo.facebook_link,
-  },
-  {
-    Icon: FaYoutube,
-    color: "#8b9ec6",
-    url: contactInfo.youtube_link,
-  },
-  {
-    Icon: FaInstagram,
-    color: "#8b9ec6",
-    url: contactInfo.instagram_link,
-  },
-];
+    {
+      Icon: FaFacebookF,
+      color: "#8b9ec6",
+      url: contactInfo.facebook_link,
+    },
+    {
+      Icon: FaYoutube,
+      color: "#8b9ec6",
+      url: contactInfo.youtube_link,
+    },
+    {
+      Icon: FaInstagram,
+      color: "#8b9ec6",
+      url: contactInfo.instagram_link,
+    },
+  ];
 
   const handleContactChange = (e) => {
     const { id, value } = e.target;
@@ -138,7 +135,7 @@ Selected Day: ${bookingFormData.selectedDay}`;
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const response = await axiosInstance.get('/contact');
+        const response = await axiosInstance.get("/contact");
         setContactInfo(response.data);
       } catch (error) {
         console.error("Error fetching contact info:", error);
@@ -175,7 +172,6 @@ Selected Day: ${bookingFormData.selectedDay}`;
       </div>
     );
   }
-
 
   return (
     <motion.div
@@ -324,7 +320,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                     Booking Contact Number
                   </h3>
                   {contactInfo.booking_contact_number && (
-                    <p className="text-gray-600 mt-1">{contactInfo.booking_contact_number}</p>
+                    <p className="text-gray-600 mt-1">
+                      {contactInfo.booking_contact_number}
+                    </p>
                   )}
                 </div>
               </div>
@@ -337,7 +335,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                     Whatsapp Contact Number
                   </h3>
                   {contactInfo.whatsapp_number && (
-                    <p className="text-gray-600 mt-1">{contactInfo.whatsapp_number}</p>
+                    <p className="text-gray-600 mt-1">
+                      {contactInfo.whatsapp_number}
+                    </p>
                   )}
                 </div>
               </div>
@@ -350,7 +350,9 @@ Selected Day: ${bookingFormData.selectedDay}`;
                     Reception Contact
                   </h3>
                   {contactInfo.reception_contact_number && (
-                    <p className="text-gray-600 mt-1">{contactInfo.reception_contact_number}</p>
+                    <p className="text-gray-600 mt-1">
+                      {contactInfo.reception_contact_number}
+                    </p>
                   )}
                 </div>
               </div>
@@ -362,9 +364,7 @@ Selected Day: ${bookingFormData.selectedDay}`;
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Email</h3>
                   {contactInfo.email && (
-                    <p className="text-gray-600 mt-1">
-                      {contactInfo.email}
-                    </p>
+                    <p className="text-gray-600 mt-1">{contactInfo.email}</p>
                   )}
                 </div>
               </div>

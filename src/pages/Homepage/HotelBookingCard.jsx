@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../services/api";
 
 function HotelBookingCard() {
   const navigate = useNavigate();
@@ -13,21 +14,18 @@ function HotelBookingCard() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          "http://localhost:8000/api/hotel-booking-section",
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axiosInstance.get("/hotel-booking-section", {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
 
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw new Error(`Failed to fetch data: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = response.data;
 
         if (data && Object.keys(data).length > 0) {
           setSection(data);
@@ -110,11 +108,6 @@ function HotelBookingCard() {
         {section.title}
       </h2>
 
-      {/* Description */}
-      {/* {section.description && (
-        <p className="max-w-3xl text-gray-700 mb-6">{section.description}</p>
-      )} */}
-
       {/* Button */}
       <div className="pt-4">
         <button
@@ -141,7 +134,7 @@ function HotelBookingCard() {
           ) : section.video_type === "upload" && section.uploaded_video ? (
             <video
               className="w-full h-full object-cover"
-              src={`http://localhost:8000/storage/${section.uploaded_video}`}
+              src={`${axiosInstance.defaults.fileURL}/${section.uploaded_video}`}
               autoPlay
               muted
               loop

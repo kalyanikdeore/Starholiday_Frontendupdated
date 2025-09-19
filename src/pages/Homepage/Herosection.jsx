@@ -12,6 +12,7 @@ import {
   Loader2,
   AlertCircle,
 } from "lucide-react";
+import axiosInstance from "../../services/api";
 
 const HeroSection = ({ scrollToResortImage }) => {
   const navigate = useNavigate();
@@ -29,34 +30,16 @@ const HeroSection = ({ scrollToResortImage }) => {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          "http://localhost:8000/api/hero-sections",
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest",
-            },
-          }
-        );
+        const response = await axiosInstance.get("/hero-sections");
 
-        if (!response.ok) {
-          throw new Error(
-            `Server returned ${response.status}: ${response.statusText}`
-          );
-        }
-
-        const data = await response.json();
-
-        if (data && Array.isArray(data)) {
-          setHeroContent(data);
+        if (response.data && Array.isArray(response.data)) {
+          setHeroContent(response.data);
         } else {
           throw new Error("Invalid data format received from server");
         }
       } catch (error) {
         console.error("Error fetching hero content:", error);
         setError(error.message);
-
         // Fallback to default content if API fails
       } finally {
         setLoading(false);
@@ -116,27 +99,10 @@ const HeroSection = ({ scrollToResortImage }) => {
     }
   };
 
-  // Function to get proper image URL
+  // Function to get proper image URL - simplified since API now returns full URLs
   const getImageUrl = (imagePath) => {
     if (!imagePath) return "/images/fallback-hero.jpg";
-
-    // If it's already a full URL (http/https)
-    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-      return imagePath;
-    }
-
-    // If it's a storage path (starts with hero-images/)
-    if (imagePath.startsWith("hero-images/")) {
-      return `/storage/${imagePath}`;
-    }
-
-    // If it's already a relative path from storage
-    if (imagePath.startsWith("storage/")) {
-      return `/${imagePath}`;
-    }
-
-    // Default fallback
-    return "/images/fallback-hero.jpg";
+    return imagePath;
   };
 
   if (loading) {
@@ -197,9 +163,6 @@ const HeroSection = ({ scrollToResortImage }) => {
               src={getImageUrl(currentItem.image_url)}
               alt={currentItem.title}
               className="h-full w-full object-cover object-center"
-              onError={(e) => {
-                e.target.src = "/images/fallback-hero.jpg";
-              }}
             />
             <div className="absolute inset-0 "></div>
           </motion.div>

@@ -1,5 +1,5 @@
 import React from "react";
-import shbg from "../../assets/Images/shbg.jpg";
+import shbg from "../../assets/Images/shbg.jpeg";
 const InquiryHero = () => {
   return (
     <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden">

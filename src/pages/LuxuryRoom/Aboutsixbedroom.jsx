@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/api";
 
-// ✅ Enhanced Image Carousel Component with fixed size
+// ✅ Enhanced Image Carousel Component with responsive design
 const ImageCarousel = ({ images, interval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});
@@ -50,20 +50,14 @@ const ImageCarousel = ({ images, interval = 3000 }) => {
   // If no images, show placeholder
   if (!normalizedImages || normalizedImages.length === 0) {
     return (
-      <div
-        className="relative overflow-hidden rounded-2xl shadow-xl bg-gray-200 flex items-center justify-center"
-        style={{ width: "647px", height: "427px" }}
-      >
+      <div className="relative overflow-hidden rounded-2xl shadow-xl bg-gray-200 flex items-center justify-center carousel-container">
         <div className="text-gray-500 text-lg">No images available</div>
       </div>
     );
   }
 
   return (
-    <div
-      className="relative overflow-hidden rounded-2xl shadow-xl group"
-      style={{ width: "647px", height: "427px" }}
-    >
+    <div className="relative overflow-hidden rounded-2xl shadow-xl group carousel-container">
       {/* Left Arrow */}
       <button
         onClick={goToPrev}
@@ -116,11 +110,7 @@ const ImageCarousel = ({ images, interval = 3000 }) => {
         }}
       >
         {normalizedImages.map((image, i) => (
-          <div
-            key={i}
-            className="w-full h-full flex-shrink-0"
-            style={{ width: "647px", height: "427px" }}
-          >
+          <div key={i} className="w-full h-full flex-shrink-0">
             {!loadedImages[i] && (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
                 <div className="animate-pulse text-gray-500">
@@ -134,8 +124,6 @@ const ImageCarousel = ({ images, interval = 3000 }) => {
               className="w-full h-full object-cover"
               style={{
                 display: loadedImages[i] ? "block" : "none",
-                width: "647px",
-                height: "427px",
               }}
               onLoad={() => handleImageLoad(i)}
               onError={(e) => {
@@ -165,7 +153,7 @@ const ImageCarousel = ({ images, interval = 3000 }) => {
   );
 };
 
-// ✅ Fixed Main Page
+// ✅ Main Page with mobile-responsive design
 const Familyroom = () => {
   const navigate = useNavigate();
   const [roomData, setRoomData] = useState(null);
@@ -290,13 +278,13 @@ const Familyroom = () => {
           padding: "0 16px",
         }}
       >
-        <div className="flex flex-col lg:flex-row gap-10 items-start justify-center">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-start justify-center">
           {/* Left Side - Content */}
-          <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl duration-300 flex flex-col w-full lg:w-1/2">
-            <h2 className="text-3xl font-extrabold text-gray-800 mb-3">
+          <div className="bg-white/90 backdrop-blur-sm p-6 lg:p-8 rounded-2xl duration-300 flex flex-col w-full lg:w-1/2">
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-gray-800 mb-3">
               {roomData.title || "6 Bedded super deluxe AC family Suite"}
             </h2>
-            <p className="text-gray-600 mb-6 text-lg italic border-l-4 border-blue-500 pl-4">
+            <p className="text-gray-600 mb-4 lg:mb-6 text-base lg:text-lg italic border-l-4 border-blue-500 pl-4">
               "
               {roomData.tagline ||
                 "Perfect for group vacations, this suite brings everyone together while ensuring ample space and convenience for all."}
@@ -304,19 +292,22 @@ const Familyroom = () => {
             </p>
 
             {descriptionTexts.map((desc, index) => (
-              <p key={index} className="text-gray-700 mb-3 leading-relaxed">
+              <p
+                key={index}
+                className="text-gray-700 mb-3 leading-relaxed text-sm lg:text-base"
+              >
                 {desc}
               </p>
             ))}
 
             {/* Features */}
-            <div className="grid sm:grid-cols-2 gap-6 my-8">
-              <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
-                <h4 className="text-gray-800 font-semibold mb-3 flex items-center text-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 my-6 lg:my-8">
+              <div className="bg-blue-50/50 p-4 lg:p-5 rounded-xl border border-blue-100">
+                <h4 className="text-gray-800 font-semibold mb-3 flex items-center text-base lg:text-lg">
                   <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
                   Room Specs
                 </h4>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-gray-700 text-xs lg:text-sm">
                   {roomData.specs && typeof roomData.specs === "object" ? (
                     Object.entries(roomData.specs).map(
                       ([key, value], index) => (
@@ -331,12 +322,12 @@ const Familyroom = () => {
                 </ul>
               </div>
 
-              <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-100">
-                <h4 className="text-gray-800 font-semibold mb-3 flex items-center text-lg">
+              <div className="bg-blue-50/50 p-4 lg:p-5 rounded-xl border border-blue-100">
+                <h4 className="text-gray-800 font-semibold mb-3 flex items-center text-base lg:text-lg">
                   <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
                   Amenities
                 </h4>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-gray-700 text-xs lg:text-sm">
                   {roomData.amenities && roomData.amenities.length > 0 ? (
                     roomData.amenities.map((amenity, index) => {
                       // Extract amenity text if it's an object
@@ -355,7 +346,7 @@ const Familyroom = () => {
             <div className="pt-4 border-t border-gray-200">
               <button
                 onClick={handleBooking}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 lg:px-8 py-3 rounded-xl text-sm lg:text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all w-full lg:w-auto"
               >
                 {roomData.booking_button?.text || "Book Now"}
               </button>
@@ -363,20 +354,53 @@ const Familyroom = () => {
           </div>
 
           {/* Right Side - Carousel */}
-          <div className="rounded-2xl duration-300 flex justify-center items-center">
+          <div className="rounded-2xl duration-300 flex justify-center items-center w-full lg:w-auto">
             {roomData.images && roomData.images.length > 0 ? (
-              <ImageCarousel images={roomData.images} interval={4000} />
+              <div className="w-full flex justify-center">
+                <ImageCarousel images={roomData.images} interval={4000} />
+              </div>
             ) : (
-              <div
-                className="flex items-center justify-center bg-gray-100 rounded-2xl"
-                style={{ width: "647px", height: "427px" }}
-              >
+              <div className="flex items-center justify-center bg-gray-100 rounded-2xl carousel-container">
                 <div className="text-gray-500">No images to display</div>
               </div>
             )}
           </div>
         </div>
       </div>
+
+      {/* Mobile-responsive CSS */}
+      <style jsx>{`
+        .carousel-container {
+          width: 100%;
+          max-width: 647px;
+          height: 427px; /* Desktop height */
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+          .carousel-container {
+            height: 350px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .carousel-container {
+            height: 300px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .carousel-container {
+            height: 250px;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .carousel-container {
+            height: 200px;
+          }
+        }
+      `}</style>
     </div>
   );
 };

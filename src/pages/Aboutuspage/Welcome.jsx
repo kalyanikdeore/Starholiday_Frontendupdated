@@ -64,8 +64,8 @@ const AboutSection = () => {
               {section.title}
             </h6>
             <h3 className="text-4xl text-blue-900 font-semibold">
-              Star Holiday Resort is the 1st & Only <br /> Government Approved
-              saputara hotels.
+              Star Holiday Resort is the 1st & Only <br /> Approved saputara
+              hotels.
             </h3>
           </div>
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">

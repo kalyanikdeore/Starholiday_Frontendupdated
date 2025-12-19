@@ -70,10 +70,10 @@ const CoupleRoomImagesGallery = () => {
       {/* Heading Section */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Gallery</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        {/* <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Explore our collection of stunning images. Click on any image to view
           it in full size.
-        </p>
+        </p> */}
         <div className="w-24 h-1 bg-blue-500 mx-auto mt-6 rounded-full"></div>
       </div>
 

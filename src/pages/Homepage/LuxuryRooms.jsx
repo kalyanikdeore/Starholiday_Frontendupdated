@@ -110,17 +110,17 @@ const LuxuryRooms = () => {
               </h4>
 
               {/* Buttons */}
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-row justify-center gap-3 sm:gap-4">
                 <button
                   onClick={() => handleRoomClick(room.path)}
-                  className="flex items-center gap-2 px-5 py-2 rounded-full bg-blue-900 text-white font-medium hover:bg-blue-700 transition"
+                  className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2 rounded-full bg-blue-900 text-white font-medium hover:bg-blue-700 transition text-sm sm:text-base w-full"
                 >
                   View Details
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
                 <button
                   onClick={handleBookNow}
-                  className="px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-medium hover:opacity-90 transition"
+                  className="px-4 sm:px-5 py-2 sm:py-2 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-medium hover:opacity-90 transition text-sm sm:text-base w-full"
                 >
                   Book Now
                 </button>

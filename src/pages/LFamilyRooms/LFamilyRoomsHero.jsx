@@ -1,5 +1,5 @@
 import React from "react";
-import shbg from "../../assets/Images/shbg.jpg";
+import shbg from "../../assets/Images/shbg.jpeg";
 
 const ContactHero = () => {
   return (

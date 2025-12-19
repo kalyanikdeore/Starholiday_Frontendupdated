@@ -28,7 +28,7 @@ const AboutUsSection = () => {
 
   // Helper function to construct the correct image URL
   const getImageUrl = (imagePath) => {
-    if (!imagePath) return "/placeholder.jpg";
+    // if (!imagePath) return "/placeholder.jpg";
 
     // Check if the path is already a full URL
     if (imagePath.startsWith("http")) {
@@ -92,9 +92,7 @@ const AboutUsSection = () => {
                 src={getImageUrl(aboutData.image_1)}
                 alt="Resort Exterior"
                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                onError={(e) => {
-                  e.target.src = "/placeholder.jpg";
-                }}
+                onError={(e) => {}}
               />
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden shadow-lg mt-8">
@@ -102,9 +100,7 @@ const AboutUsSection = () => {
                 src={getImageUrl(aboutData.image_2)}
                 alt="Resort Interior"
                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                onError={(e) => {
-                  e.target.src = "/placeholder.jpg";
-                }}
+                onError={(e) => {}}
               />
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden shadow-lg col-span-2">
@@ -112,9 +108,7 @@ const AboutUsSection = () => {
                 src={getImageUrl(aboutData.image_3)}
                 alt="Hotel Room"
                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                onError={(e) => {
-                  e.target.src = "/placeholder.jpg";
-                }}
+                onError={(e) => {}}
               />
             </div>
           </div>

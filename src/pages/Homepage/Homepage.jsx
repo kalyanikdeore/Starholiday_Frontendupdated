@@ -14,7 +14,11 @@ import Serviceimage from "./Serviceimage";
 import CTA from "./CTA";
 import Review from "./Review";
 import AboutFacilitypage from "../AboutFacilitypage/AboutFacilitypage";
-
+import Photosvideos from "./Photosvideos";
+import AboutSaputara from "../Saputarapage/AboutSaputara";
+import SaputaraSightseeing from "../Saputarapage/SaputaraSightseeing";
+import Saputaravideo from "../Saputarapage/Saputaravideo";
+import SaputaraImage from "../Saputarapage/SaputaraImage";
 function Home() {
   const resortImageRef = useRef(null);
 
@@ -25,23 +29,32 @@ function Home() {
   return (
     <div>
       <Herosection scrollToResortImage={scrollToResortImage} />
-      <HotelBookingCard />
-      <CTA />
-      <VideoSection />
       <LuxuryRooms />
-      <AboutUsSection />
-      <CTA />
-      {/* Add ref to Resortimage component */}
       <div ref={resortImageRef}>
         <Resortimage />
       </div>
+      <HotelBookingCard />
+
+      <CTA />
+      <AboutUsSection />
+      <VideoSection />
+
+      <Photosvideos />
+      <CTA />
+      {/* Add ref to Resortimage component */}
+
       <Amenities />
       {/* Remove AboutFacilitypage from here since we'll navigate to it separately */}
+      <Photosvideos />
       <CTA />
       <Impact />
       <StayWithUs />
       <Testimonials />
       <Review />
+      <AboutSaputara />
+      <SaputaraSightseeing />
+      <Saputaravideo />
+      <SaputaraImage />
     </div>
   );
 }

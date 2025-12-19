@@ -28,6 +28,8 @@ import Festival from "./pages/Festival/Festival";
 import Bookfrom from "./pages/Book/Bookfrom";
 import Bookfromhero from "./pages/Book/Bookfromhero";
 import Roompage from "./pages/Roompage/Roompage";
+import ReviewSection from "./pages/ReviewSection/ReviewSection";
+import Imagepage from "./pages/Imagepage/Imagepage";
 
 function App() {
   const router = createBrowserRouter(
@@ -50,8 +52,9 @@ function App() {
         <Route path="Festival" element={<Festival />} />
         <Route path="bookform" element={<Bookfrom />} />
         <Route path="bookform" element={<Bookfromhero />} />
-        <Route path="/rooms" element={<Roompage />} /> {/* Main rooms page */}
-        {/* <Route path="/room/:roomId" element={<Roompagedetails />} /> {/* Individual room detai */}
+        <Route path="/rooms" element={<Roompage />} />
+        <Route path="/ReviewSection" element={<ReviewSection />} />
+        <Route path="/360-photos-videos" element={<Imagepage />} />
       </Route>
     )
   );

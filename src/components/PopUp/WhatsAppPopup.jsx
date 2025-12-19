@@ -10,7 +10,7 @@ function WhatsAppPopup() {
   const navigate = useNavigate();
 
   // Close popup when clicking outside
-  useEffect(() => {
+  useEffect(() => { 
     const handleClickOutside = (e) => {
       if (show && !e.target.closest(".whatsapp-popup-container")) {
         setShow(false);
@@ -41,7 +41,7 @@ function WhatsAppPopup() {
               <div className="flex items-center space-x-3">
                 <FaWhatsapp className="text-2xl text-white" />
                 <div className="text-white">
-                  <h4 className="font-semibold">Get In Touch</h4>
+                  <h4 className="font-semibold">Get In Touchsdsdf</h4>
                   <p className="text-xs">How can we help you?</p>
                 </div>
               </div>
@@ -59,8 +59,7 @@ function WhatsAppPopup() {
                 Our experts will reply to you shortly
               </p>
               <a
-                href="https://wa.me/919850981210?text=Hello%20there!"
-                target="_blank"
+                href="https://wa.me/919850981210?text=Please give me details Starholiday home!"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors w-full"
               >

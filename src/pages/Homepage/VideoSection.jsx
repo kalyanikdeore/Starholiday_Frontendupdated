@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axiosInstance from "../../services/api";
 
 function VideoSection() {
   const [video, setVideo] = useState(null);
@@ -8,28 +9,20 @@ function VideoSection() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/video-section");
+        const response = await axiosInstance.get("/video-section");
 
         if (response.status === 404) {
           throw new Error("API endpoint not found. Check your routes.");
         }
 
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch video: ${response.status} ${response.statusText}`
-          );
-        }
-
-        const data = await response.json();
-
         // Check if there's an active video section
-        if (!data.is_active) {
+        if (!response.data.is_active) {
           setError("No active video section found");
           setLoading(false);
           return;
         }
 
-        setVideo(data);
+        setVideo(response.data);
       } catch (err) {
         setError(err.message);
         console.error("Error fetching video:", err);
@@ -119,7 +112,7 @@ function VideoSection() {
             <iframe
               className="w-full h-full"
               src={youtubeEmbedUrl}
-              // title={video.title || "Featured Video"}
+              title={video.title || "Featured Video"}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -127,14 +120,23 @@ function VideoSection() {
           ) : video.video_type === "upload" && video.uploaded_video_url ? (
             <video
               className="w-full h-full"
-              // controls={video.show_controls}
-              // autoPlay={video.autoplay}
-              // muted={video.muted}
-              // loop={video.loop}
+              controls={video.show_controls}
+              autoPlay={video.autoplay}
+              muted={video.muted}
+              loop={video.loop}
             >
-              <source src={video.uploaded_video_url} type="video/mp4" />
-              <source src={video.uploaded_video_url} type="video/webm" />
-              <source src={video.uploaded_video_url} type="video/ogg" />
+              <source
+                src={`${axiosInstance.defaults.fileURL}${video.uploaded_video_url}`}
+                type="video/mp4"
+              />
+              <source
+                src={`${axiosInstance.defaults.fileURL}${video.uploaded_video_url}`}
+                type="video/webm"
+              />
+              <source
+                src={`${axiosInstance.defaults.fileURL}${video.uploaded_video_url}`}
+                type="video/ogg"
+              />
               Your browser does not support the video tag.
             </video>
           ) : (
@@ -147,39 +149,15 @@ function VideoSection() {
         {/* Video Information */}
         <div className="mt-4 flex justify-between items-center">
           <div className="flex items-center">
-            {/* <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {video.video_type === "youtube" ? "YouTube" : "Uploaded Video"}
-            </span> */}
             {video.title && (
-              <span className="ml-2 text-sm text-gray-700 font-medium">
+              <h3 className="text-xl font-semibold text-gray-800">
                 {/* {video.title} */}
-              </span>
+              </h3>
             )}
           </div>
-
-          {/* {video.video_type === "youtube" && video.youtube_url && (
-            <a
-              href={video.youtube_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-sm text-blue-500 hover:text-blue-700"
-            >
-              Watch on YouTube
-              <svg
-                className="w-4 h-4 ml-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          )} */}
+          {video.description && (
+            <p className="text-gray-600">{video.description}</p>
+          )}
         </div>
       </div>
     </div>

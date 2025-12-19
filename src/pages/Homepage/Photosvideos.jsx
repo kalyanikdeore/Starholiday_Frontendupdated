@@ -1,14 +1,17 @@
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const GoogleReviewButton = () => {
-  const reviewUrl = "https://starholidayhome.demovoting.com/ReviewSection";
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/360-photos-videos");
+  };
 
   return (
-    <div className="flex justify-center items-center mb-8">
-      <a
-        href={reviewUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+    <div className="flex justify-center items-center py-10">
+      <button
+        onClick={handleClick}
         className="text-black px-6 py-3 rounded-lg font-bold 
                  transition-all duration-300 ease-in-out 
                  border-2 border-orange-500 
@@ -17,9 +20,9 @@ const GoogleReviewButton = () => {
                  shadow-md hover:shadow-orange-500/30 
                  flex items-center gap-2 group"
       >
-        Write a Review
+        360 degree photo & videos
         <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-      </a>
+      </button>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import restaurant from "./Images/restaurant.jpeg";
 import restaurant2 from "./Images/restaurant2.jpeg";
 import restaurant3 from "./Images/restaurant3.jpeg";
 import restaurant4 from "./Images/restaurant4.jpeg";
+import a from "./Images/a.mp4";
 
 // Saputara images
 import saputara from "./Images/saputara.jpg";
@@ -74,20 +75,15 @@ import cctv from "./Images/cctv.jpeg";
 import room from "./Images/room.jpeg";
 import ev from "./Images/ev.jpg";
 import logos from "./Images/logos.jpeg";
-import cou5 from "./Images/cou5.jpeg";
 import cou6 from "./Images/cou6.jpeg";
-import room7 from "./Images/room7.jpeg";
-import six2 from "./Images/  six2.jpg";
+
 // Export all
 export {
-  six2,
-  room7,
-  cou6,
+  a,
   service,
   parking,
   room,
   logos,
-  logo,
   cctv,
   sixbed,
   market,
@@ -153,4 +149,6 @@ export {
   cou3,
   cou4,
   cou5,
+  cou6,
+  logo,
 };

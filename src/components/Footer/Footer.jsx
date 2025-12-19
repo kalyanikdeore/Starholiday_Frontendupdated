@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaFacebookF,
   FaYoutube,
@@ -28,7 +28,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const response = await axiosInstance.get('/contact');
+        const response = await axiosInstance.get("/contact");
         setContactInfo(response.data);
       } catch (error) {
         console.error("Error fetching contact info:", error);
@@ -40,7 +40,6 @@ const Footer = () => {
     fetchContactInfo();
   }, []);
 
-
   const pageLinks = [
     { name: "About Us", path: "/about_hill" },
     { name: "Facilities", path: "/about_facility" },
@@ -50,22 +49,22 @@ const Footer = () => {
   ];
 
   const socials = [
-  {
-    Icon: FaFacebookF,
-    color: "#8b9ec6",
-    url: contactInfo.facebook_link,
-  },
-  {
-    Icon: FaYoutube,
-    color: "#8b9ec6",
-    url: contactInfo.youtube_link,
-  },
-  {
-    Icon: FaInstagram,
-    color: "#8b9ec6",
-    url: contactInfo.instagram_link,
-  },
-];
+    {
+      Icon: FaFacebookF,
+      color: "#8b9ec6",
+      url: contactInfo.facebook_link,
+    },
+    {
+      Icon: FaYoutube,
+      color: "#8b9ec6",
+      url: contactInfo.youtube_link,
+    },
+    {
+      Icon: FaInstagram,
+      color: "#8b9ec6",
+      url: contactInfo.instagram_link,
+    },
+  ];
 
   // Set consistent icon size
   const iconSize = 16;
@@ -167,9 +166,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <FaEnvelope className="mr-3 text-[#ff9d00]" size={iconSize} />
-                {contactInfo.email && (
-                  <p>{contactInfo.email}</p>
-                )}
+                {contactInfo.email && <p>{contactInfo.email}</p>}
               </div>
             </div>
           </div>
@@ -179,16 +176,20 @@ const Footer = () => {
             <h2 className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-[#ff9d00] to-[#ff6b00]">
               STAR HOLIDAY HOME RESORT
             </h2>
-            <p className="text-lg mb-6 text-white-300 font-medium">
+            {/* <p className="text-lg mb-6 text-white-300 font-medium">
               BEST RATE GUARANTEE
-            </p>
+            </p> */}
 
             {/* Newsletter */}
             <div className="mb-6">
-              <p className="text-sm mb-3">
-                Subscribe to our newsletter for offers
+              <p className="text-lg mb-3">
+                At Star Holiday Home Resort, we believe in creating
+                unforgettable memories through luxury, comfort, and exceptional
+                service. Located in the heart of Saputara, our resort offers the
+                perfect getaway with a blend of traditional hospitality and
+                modern amenities.
               </p>
-              <form
+              {/* <form
                 onSubmit={handleSubmit}
                 className="flex flex-col sm:flex-row border border-[#ff9d00] rounded-md overflow-hidden"
               >
@@ -209,10 +210,10 @@ const Footer = () => {
                 >
                   {isSubmitting ? "Submitting..." : "Subscribe"}
                 </button>
-              </form>
+              </form> */}
 
               {/* Status messages */}
-              {subscriptionStatus === "success" && (
+              {/* {subscriptionStatus === "success" && (
                 <p className="text-green-400 text-sm mt-2">
                   Thank you for subscribing!
                 </p>
@@ -221,14 +222,14 @@ const Footer = () => {
                 <p className="text-red-400 text-sm mt-2">
                   Subscription failed. Please try again.
                 </p>
-              )}
+              )} */}
             </div>
 
             {/* Social Media */}
             <div className="mb-4">
-              <p className="text-[13px] text-white-400 tracking-wider mb-3">
+              {/* <p className="text-[13px] text-white-400 tracking-wider mb-3">
                 CONNECT WITH STAR HOLIDAY HOME RESORT
-              </p>
+              </p> */}
               <div className="flex space-x-3">
                 {socials.map((social, i) => (
                   <a

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { FiImage } from 'react-icons/fi';
-import axiosInstance from '../../services/api';
+import React, { useState, useEffect } from "react";
+import { FiImage } from "react-icons/fi";
+import axiosInstance from "../../services/api";
 
 const FestivalGallery = () => {
   const [categories, setCategories] = useState([]);
@@ -13,47 +13,49 @@ const FestivalGallery = () => {
     const fetchFestivalGalleryData = async () => {
       try {
         setLoading(true);
-        const response = await axiosInstance.get('/festival-gallery');
-        
+        const response = await axiosInstance.get("/festival-gallery");
+
         if (response.data.success) {
           const apiData = response.data.data;
-          
+
           // Transform API data to match frontend structure
           const transformedCategories = [
-            { id: "all", name: "All", icon: <FiImage /> }
+            { id: "all", name: "All", icon: <FiImage /> },
           ];
-          
+
           const transformedGalleryData = [];
-          
-          apiData.forEach(category => {
+
+          apiData.forEach((category) => {
             // Add category to filter list
             transformedCategories.push({
               id: category.id.toString(),
-              name: category.name
+              name: category.name,
             });
-            
+
             // Add gallery images
-            category.galleries.forEach(gallery => {
-              gallery.images.forEach(imageUrl => {
+            category.galleries.forEach((gallery) => {
+              gallery.images.forEach((imageUrl) => {
                 transformedGalleryData.push({
-                  id: `${category.id}-${gallery.id}-${Math.random().toString(36).substr(2, 9)}`,
+                  id: `${category.id}-${gallery.id}-${Math.random()
+                    .toString(36)
+                    .substr(2, 9)}`,
                   url: imageUrl,
                   category: category.name,
-                  categoryId: category.id.toString()
+                  categoryId: category.id.toString(),
                 });
               });
             });
           });
-          
+
           setCategories(transformedCategories);
           setGalleryData(transformedGalleryData);
         } else {
-          setError(response.data.message || 'Failed to load gallery data');
+          setError(response.data.message || "Failed to load gallery data");
         }
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching festival gallery data:', err);
-        setError('Failed to load festival gallery');
+        console.error("Error fetching festival gallery data:", err);
+        setError("Failed to load festival gallery");
         setLoading(false);
       }
     };
@@ -63,12 +65,12 @@ const FestivalGallery = () => {
 
   const getFilteredImages = () => {
     if (currentCategory === "all") return galleryData;
-    return galleryData.filter(img => img.categoryId === currentCategory);
+    return galleryData.filter((img) => img.categoryId === currentCategory);
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-yellow-50 py-12 px-6">
+      <div className="min-h-screen bg-yellow-50 py-2 px-6">
         <h1 className="text-4xl font-bold text-blue-800 text-center mb-8">
           Festival Gallery
         </h1>
@@ -127,13 +129,14 @@ const FestivalGallery = () => {
               key={img.id}
               className="relative overflow-hidden rounded-lg shadow-md hover:shadow-lg cursor-pointer group"
             >
-              <img 
-                src={img.url} 
-                alt={img.category} 
+              <img
+                src={img.url}
+                alt={img.category}
                 className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
-                  console.error('Image failed to load:', img.url);
-                  e.target.src = 'https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Image+Not+Found';
+                  console.error("Image failed to load:", img.url);
+                  e.target.src =
+                    "https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Image+Not+Found";
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">

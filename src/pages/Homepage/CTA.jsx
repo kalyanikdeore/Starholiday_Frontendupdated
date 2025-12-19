@@ -62,20 +62,28 @@ const CTA = () => {
         </div>
 
         {/* Right Side Buttons */}
-        <div className="flex gap-4 mt-6 md:mt-0">
+        <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 mt-6 md:mt-0 w-full">
           {/* BOOK NOW → Navigate to 2nd page */}
           <button
             onClick={() => navigate("/bookform")}
-            className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
+            className="flex items-center justify-center gap-1 sm:gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-xl shadow-lg transition transform hover:scale-105 text-xs sm:text-sm md:text-base w-full whitespace-nowrap"
           >
-            <Calendar size={18} /> BOOK NOW
+            <Calendar
+              size={14}
+              className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]"
+            />
+            BOOK NOW
           </button>
           {/* CALL NOW → Opens phone dialer */}
           <a
             href={`tel:${ctaData?.phone_number || "+1234567890"}`}
-            className="flex items-center gap-2 bg-white text-green-700 border border-green-200 hover:bg-green-50 font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105"
+            className="flex items-center justify-center gap-1 sm:gap-2 bg-white text-green-700 border border-green-200 hover:bg-green-50 font-semibold px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-xl shadow-lg transition transform hover:scale-105 text-xs sm:text-sm md:text-base w-full whitespace-nowrap"
           >
-            <Phone size={18} /> CALL NOW
+            <Phone
+              size={14}
+              className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]"
+            />
+            CALL NOW
           </a>
         </div>
       </div>

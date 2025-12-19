@@ -8,23 +8,47 @@ import starlogo2 from "../../assets/Images/starlogo2.png";
 import logos from "../../assets/Images/logos.jpeg";
 import axiosInstance from "../../services/api";
 
-// ✅ Navigation Items
-const navItems = [
+// ✅ Navigation Items - Desktop (Full menu)
+const desktopNavItems = [
   { label: "HOME", path: "/home" },
-  { label: "ABOUT US", path: "/about_hill" },
+  { label: "ABOUT US", path: "/about_hill" }, 
+  { label: "COUPLE ROOM", path: "/Coupleroom" },
+  { label: "4 BEDDED ROOM", path: "/family_room" },
+  { label: "6 BEDDED ROOM", path: "/6_bedrooms" },
+  { label: "GALLERY", path: "/gallery" },
+  { label: "CONTACT US", path: "/contact_us" },
   {
-    label: "LUXURY ROOMS",
+    label: "MORE",
     submenu: [
-      { label: "2 Bedded super deluxe AC couple rooms", path: "/Coupleroom" },
-      { label: "4 Bedded super deluxe AC family rooms", path: "/family_room" },
-      { label: "6 Bedded super deluxe AC family Suite", path: "/6_bedrooms" },
+      { label: "FACILITIES", path: "/about_facility" },
+      { label: "SAPUTARA", path: "/Saputara" },
+      { label: "MONSOONFESTIVAL", path: "/festival" },
     ],
   },
-  { label: "FACILITIES", path: "/about_facility" },
+];
+
+// ✅ Navigation Items - Mobile (Hide specific rooms)
+const mobileNavItems = [
+  { label: "HOME", path: "/home" },
+  { label: "ABOUT US", path: "/about_hill" },
   { label: "GALLERY", path: "/gallery" },
-  { label: "SAPUTARA", path: "/Saputara" },
-  { label: "MONSOONFESTIVAL", path: "/festival" },
   { label: "CONTACT US", path: "/contact_us" },
+  // {
+  //   label: "ROOMS",
+  //   submenu: [
+  //     { label: "COUPLE ROOM", path: "/Coupleroom" },
+  //     { label: "4 BEDDED ROOM", path: "/family_room" },
+  //     { label: "6 BEDDED ROOM", path: "/6_bedrooms" },
+  //   ],
+  // },
+  {
+    label: "MORE",
+    submenu: [
+      { label: "FACILITIES", path: "/about_facility" },
+      { label: "SAPUTARA", path: "/Saputara" },
+      { label: "MONSOONFESTIVAL", path: "/festival" },
+    ],
+  },
 ];
 
 // ✅ Top Bar Component (hidden on mobile)
@@ -57,7 +81,7 @@ const TopBar = ({ hideTopBar }) => {
 
   return (
     <div
-      className={`hidden md:block text-sm transition-transform duration-500 ${
+      className={`hidden md:block text-sm transition-all duration-500 ${
         hideTopBar ? "-translate-y-full" : "translate-y-0"
       } fixed top-0 left-0 w-full z-[1000] border-b border-gray-200 bg-blue-950`}
     >
@@ -114,11 +138,31 @@ const TopBar = ({ hideTopBar }) => {
 const MainNavbar = ({ hideTopBar }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const navigate = useNavigate();
+
+  // Use different nav items based on screen size
+  const navItems = isMobile ? mobileNavItems : desktopNavItems;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      // Close dropdowns when resizing to avoid layout issues
+      if (window.innerWidth >= 1024) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleDropdown = (index) =>
     setOpenDropdown(openDropdown === index ? null : index);
+
+  // Calculate top position based on screen size and hideTopBar state
+  const topPosition = hideTopBar ? "0px" : isMobile ? "0px" : "30px";
 
   return (
     <>
@@ -126,10 +170,7 @@ const MainNavbar = ({ hideTopBar }) => {
         className={`fixed w-full bg-white left-0 transition-all duration-300 z-[1401] ${
           hideTopBar ? "shadow-md border-b border-gray-100" : ""
         }`}
-        // ✅ Top offset only for desktop, no gap in mobile
-        style={{
-          top: hideTopBar ? "0px" : window.innerWidth < 768 ? "0px" : "30px",
-        }}
+        style={{ top: topPosition }}
       >
         <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between py-3">
           {/* Desktop Logo */}
@@ -137,7 +178,11 @@ const MainNavbar = ({ hideTopBar }) => {
             className="cursor-pointer flex-shrink-0 hidden lg:block"
             onClick={() => navigate("/")}
           >
-            <img src={starlogo2} alt="Logo" className="h-4 w-auto md:h-20" />
+            <img
+              src={starlogo2}
+              alt="Logo"
+              className="h-15 w-46 md:h-19 lg:h-30"
+            />
           </div>
 
           {/* Mobile Logo */}
@@ -145,7 +190,7 @@ const MainNavbar = ({ hideTopBar }) => {
             className="cursor-pointer flex-shrink-0 lg:hidden"
             onClick={() => navigate("/")}
           >
-            <img src={logos} alt="Logo" className="h-12 w-auto" />
+            <img src={logos} alt="Logo" className="h-10 w-auto md:h-12" />
           </div>
 
           {/* Desktop Menu */}
@@ -206,14 +251,33 @@ const MainNavbar = ({ hideTopBar }) => {
           <div className="hidden lg:block">
             <button
               onClick={() => navigate("/bookform")}
-              className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-5 py-2 rounded-md text-sm font-bold transition duration-300"
+              className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-5 py-2 rounded-md text-sm font-bold transition duration-300 hover:from-orange-600 hover:to-yellow-600"
             >
               BOOK NOW
             </button>
           </div>
 
           {/* Mobile Toggle */}
-          <div className="lg:hidden">
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => navigate("/Coupleroom")}
+              className="mr-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-3 py-1.5 rounded-md text-xs font-bold transition duration-300 hover:from-orange-600 hover:to-yellow-600"
+            >
+              2 Bed
+            </button>
+            <button
+              onClick={() => navigate("/family_room")}
+              className="mr-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-3 py-1.5 rounded-md text-xs font-bold transition duration-300 hover:from-orange-600 hover:to-yellow-600"
+            >
+              4 Bed
+            </button>
+            <button
+              onClick={() => navigate("/6_bedrooms")}
+              className="mr-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-3 py-1.5 rounded-md text-xs font-bold transition duration-300 hover:from-orange-600 hover:to-yellow-600"
+            >
+              6 Bed
+            </button>
+
             <button
               onClick={toggleMenu}
               className="p-2 transition-colors text-black hover:text-orange-400"
@@ -232,21 +296,22 @@ const MainNavbar = ({ hideTopBar }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white shadow-md fixed top-[70px] left-0 w-full z-[1000] text-black"
+            className="lg:hidden bg-white shadow-md fixed top-full left-0 w-full z-[1000] text-black overflow-hidden"
+            style={{ top: `calc(${topPosition} + 70px)`, marginTop: "-4px" }}
           >
             <div className="px-6 py-4 space-y-4 font-medium">
               {navItems.map((item, index) => (
                 <div key={index}>
                   {item.submenu ? (
                     <details className="group">
-                      <summary className="flex justify-between items-center cursor-pointer text-base hover:text-orange-500">
+                      <summary className="flex justify-between items-center cursor-pointer text-base hover:text-orange-500 py-2">
                         {item.label}
                         <ChevronDown
                           size={18}
                           className="transition-transform group-open:rotate-180"
                         />
                       </summary>
-                      <div className="mt-2 pl-4 space-y-2">
+                      <div className="mt-2 pl-4 space-y-3 border-l border-gray-200 ml-2">
                         {item.submenu.map((subItem, subIndex) => (
                           <div
                             key={subIndex}
@@ -254,7 +319,7 @@ const MainNavbar = ({ hideTopBar }) => {
                               navigate(subItem.path);
                               setIsMenuOpen(false);
                             }}
-                            className="text-sm cursor-pointer hover:text-orange-600"
+                            className="text-sm cursor-pointer hover:text-orange-600 py-2"
                           >
                             {subItem.label}
                           </div>
@@ -267,23 +332,13 @@ const MainNavbar = ({ hideTopBar }) => {
                         navigate(item.path);
                         setIsMenuOpen(false);
                       }}
-                      className="text-base cursor-pointer hover:text-orange-500"
+                      className="text-base cursor-pointer hover:text-orange-500 py-2"
                     >
                       {item.label}
                     </div>
                   )}
                 </div>
               ))}
-              {/* Mobile BOOK NOW */}
-              <button
-                onClick={() => {
-                  navigate("/bookform");
-                  setIsMenuOpen(false);
-                }}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-md text-sm font-bold transition duration-300"
-              >
-                BOOK NOW
-              </button>
             </div>
           </motion.div>
         )}
@@ -295,12 +350,33 @@ const MainNavbar = ({ hideTopBar }) => {
 // ✅ Final Wrapper Component
 const Navbar = () => {
   const [hideTopBar, setHideTopBar] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    const handleScroll = () => setHideTopBar(window.scrollY > 50);
+    const handleScroll = () => {
+      // Only hide top bar on desktop devices
+      if (!isMobile) {
+        setHideTopBar(window.scrollY > 50);
+      }
+    };
+
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      // Reset hideTopBar when switching between mobile and desktop
+      if (mobile) {
+        setHideTopBar(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMobile]);
 
   return (
     <header className="relative z-[10]">
